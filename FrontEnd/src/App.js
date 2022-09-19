@@ -26,7 +26,7 @@ function App() {
     //   </Routes>
     // </Router>
 
-    <Admin></Admin>
+    <Home></Home>
   )
 }
 
