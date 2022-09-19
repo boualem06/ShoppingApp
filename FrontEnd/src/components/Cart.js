@@ -8,9 +8,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import pizza from '../img/pizza.png'
+import NavbarResp from './NavbarResp';
+import Footer from './Footer';
 const useStyles = makeStyles({
     table: {
-        minWidth: 650,
+        // minWidth: 100,
     },
 });
 
@@ -35,6 +37,9 @@ export default function Cart() {
     const classes = useStyles();
 
     return (
+        <div>
+
+        <NavbarResp></NavbarResp>
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
@@ -63,5 +68,6 @@ export default function Cart() {
                 </TableBody>
             </Table>
         </TableContainer>
+        </div>
     );
 }

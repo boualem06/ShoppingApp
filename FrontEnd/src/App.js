@@ -11,6 +11,7 @@ import Detail from "./components/Detail";
 import Cart from './components/Cart'
 import Admin from './components/Admin'
 import PersistentDrawerLeft from "./components/Drawer";
+import NavbarResp from "./components/NavbarResp";
 function App() {
   
   return (
@@ -27,7 +28,7 @@ function App() {
     //   </Routes>
     // </Router>
 
-    <Home></Home>
+    <Detail></Detail>
   )
 }
 
