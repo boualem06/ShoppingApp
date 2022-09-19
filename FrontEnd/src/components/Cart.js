@@ -31,6 +31,34 @@ const rows = [
         quantity: 2,
         price: "22.90",
     },
+    {
+        name: "Campagnoia",
+        extras: "Spicy Sauce, Garlic Sauce",
+        quantity: 2,
+        price: "19.90",
+
+    },
+    {
+        name: "Campagnoia",
+        extras: "Spicy Sauce, Garlic Sauce",
+        quantity: 2,
+        price: "19.90",
+
+    },
+    {
+        name: "Campagnoia",
+        extras: "Spicy Sauce, Garlic Sauce",
+        quantity: 2,
+        price: "19.90",
+
+    },
+    {
+        name: "Campagnoia",
+        extras: "Spicy Sauce, Garlic Sauce",
+        quantity: 2,
+        price: "19.90",
+
+    },
 ];
 
 export default function Cart() {

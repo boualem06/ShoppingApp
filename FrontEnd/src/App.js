@@ -13,7 +13,7 @@ import Admin from './components/Admin'
 import PersistentDrawerLeft from "./components/Drawer";
 import NavbarResp from "./components/NavbarResp";
 function App() {
-  
+
   return (
     // <Router>
     //   <Routes>
@@ -27,8 +27,15 @@ function App() {
     //     <Route exact path={'/login'} element={<Login />} />
     //   </Routes>
     // </Router>
+    <Router>
+      <Routes>
+        <Route  path={'/'} element={<Home />}></Route>
+        <Route  path={'/Admin'} element={<Admin />}></Route>
+        <Route  path={'/Cart'} element={<Cart />}></Route>
+        <Route  path={'/Detail'} element={<Detail />}></Route>
+      </Routes>
+    </Router>
 
-    <Detail></Detail>
   )
 }
 

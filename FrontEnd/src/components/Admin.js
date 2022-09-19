@@ -1,8 +1,11 @@
 import ProductTable from "./ProductTable";
 import OrdersTable from "./OrdersTable";
+import NavbarResp from "./NavbarResp";
 const Admin = () => {
     return (
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 mt-14">
+        <div>
+            <NavbarResp/>
+             <div className="px-4 grid gap-4 grid-cols-1 md:grid-cols-2 mt-24 md:mt-14 ">
             <div>
                 <div className="flex">
                     <h1 className="text-3xl font-bold">Products</h1>
@@ -15,6 +18,8 @@ const Admin = () => {
                 <OrdersTable></OrdersTable>
             </div>
         </div>
+        </div>
+       
     )
 }
 export default Admin;

@@ -3,6 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import CallTwoTone from '@material-ui/icons/CallTwoTone'
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from "react-router-dom";
 import pizza from '../img/pizza.png'
 import bike from '../img/bike.png'
 const StyledBadge = withStyles((theme) => ({
@@ -31,22 +32,25 @@ const Navbar = () => {
                 <div>
                     <span className='text-white mr-8 lg:text-lg  cursor-pointer md:hover:text-lg hover:font-bold lg:hover:text-xl'>Home page</span>
                     <span className='text-white mr-8 lg:text-lg  cursor-pointer md:hover:text-lg hover:font-bold lg:hover:text-xl'>Products</span>
-                    <span className='text-white mr-8 lg:text-lg  cursor-pointer md:hover:text-lg hover:font-bold lg:hover:text-xl'>Menu</span>
+                    <span className='text-white mr-8 lg:text-lg  cursor-pointer md:hover:text-lg hover:font-bold lg:hover:text-xl'>Menu </span>
                     <span className='text-white text-xl  cursor-pointer mr-8  font-lobster lg:text-2xl md:hover:text-2xl hover:font-bold lg:hover:text-3xl'>ShoppingApp</span>
                     <span className='text-white mr-8 lg:text-lg  cursor-pointer md:hover:text-lg hover:font-bold lg:hover:text-xl'>Events</span>
                     <span className='text-white mr-8 lg:text-lg  cursor-pointer md:hover:text-lg hover:font-bold lg:hover:text-xl'>Blog</span>
                     <span className='text-white mr-8 lg:text-lg  cursor-pointer md:hover:text-lg hover:font-bold lg:hover:text-xl'>Contact</span>
                 </div>
-
+                
                 <div >
                     <IconButton aria-label="cart">
                         <StyledBadge badgeContent={8} color="secondary">
-                            <div className='text-white'>
+                              
+                            <div className='text-white '>
                                 <ShoppingCartIcon fontSize='large' />
                             </div>
+                            
                         </StyledBadge>
                     </IconButton>
                 </div>
+                
             </div>
         </div>
        

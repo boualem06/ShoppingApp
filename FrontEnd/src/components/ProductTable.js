@@ -69,8 +69,8 @@ const ProductTable=()=>{
                             </TableCell>
                             <TableCell align="right">${row.price}</TableCell>
                             <TableCell align="right">
-                                <div className='md:flex'>
-                                    <button className=' hover:bg-sky-600 border bg-sky-500 mr-2 text-white mb-2 md:mb-0 md:px-2 px-4'>Edit</button>
+                                <div className='lg:flex'>
+                                    <button className=' hover:bg-sky-600 border bg-sky-500 mr-2 text-white mb-2 lg:mb-0 lg:px-2 px-4'>Edit</button>
                                     <button className=' hover:bg-red-600 border bg-red-500 mr-2 text-white px-2'>Delete</button>
                                 </div>
                             </TableCell>
