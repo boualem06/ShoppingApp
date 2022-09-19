@@ -9,6 +9,7 @@ import Menu from "./components/Menu";
 import Footer from "./components/Footer";
 import Detail from "./components/Detail";
 import Cart from './components/Cart'
+import Admin from './components/Admin'
 function App() {
   
   return (
@@ -25,7 +26,7 @@ function App() {
     //   </Routes>
     // </Router>
 
-    <Cart></Cart>
+    <Admin></Admin>
   )
 }
 
