@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import Detail from "./components/Detail";
 import Cart from './components/Cart'
 import Admin from './components/Admin'
+import PersistentDrawerLeft from "./components/Drawer";
 function App() {
   
   return (
