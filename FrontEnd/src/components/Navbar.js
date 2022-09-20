@@ -4,8 +4,6 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import CallTwoTone from '@material-ui/icons/CallTwoTone'
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from "react-router-dom";
-import pizza from '../img/pizza.png'
-import bike from '../img/bike.png'
 const StyledBadge = withStyles((theme) => ({
     badge: {
         right: -3,
@@ -39,6 +37,7 @@ const Navbar = () => {
                     <span className='text-white mr-8 lg:text-lg  cursor-pointer md:hover:text-lg hover:font-bold lg:hover:text-xl'>Contact</span>
                 </div>
                 
+                <Link to={"/Cart"}>
                 <div >
                     <IconButton aria-label="cart">
                         <StyledBadge badgeContent={8} color="secondary">
@@ -50,6 +49,7 @@ const Navbar = () => {
                         </StyledBadge>
                     </IconButton>
                 </div>
+                </Link>
                 
             </div>
         </div>

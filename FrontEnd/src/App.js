@@ -12,6 +12,8 @@ import Cart from './components/Cart'
 import Admin from './components/Admin'
 import PersistentDrawerLeft from "./components/Drawer";
 import NavbarResp from "./components/NavbarResp";
+import Login from "./components/Login";
+import SignUp from "./components/Sign_Up";
 function App() {
 
   return (
@@ -33,6 +35,8 @@ function App() {
         <Route  path={'/Admin'} element={<Admin />}></Route>
         <Route  path={'/Cart'} element={<Cart />}></Route>
         <Route  path={'/Detail'} element={<Detail />}></Route>
+        <Route  path={'/Login'} element={<Login />}></Route>
+        <Route  path={'/SignUp'} element={<SignUp />}></Route>
       </Routes>
     </Router>
 

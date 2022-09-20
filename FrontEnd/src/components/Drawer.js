@@ -18,14 +18,18 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import { red } from '@material-ui/core/colors';
-
-
+import { Link } from "react-router-dom";
+import Home from '@material-ui/icons/Home';
 import Badge from '@material-ui/core/Badge';
 // import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import CallTwoTone from '@material-ui/icons/CallTwoTone'
 import { withStyles } from '@material-ui/core/styles';
-
+import Person from '@material-ui/icons/Person'
+import Email from '@material-ui/icons/Email' ;
+import Create from '@material-ui/icons/Create' ;
+ import PermContactCalendar from '@material-ui/icons/PermContactCalendar'
+ 
 const drawerWidth = 240;
 
 const StyledBadge = withStyles((theme) => ({
@@ -65,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'none',
     },
     drawer: {
+        background:"#C5430C",
         width: drawerWidth,
         flexShrink: 0,
     },
@@ -130,18 +135,20 @@ export default function PersistentDrawerLeft() {
                         <MenuIcon />
                     </IconButton>
                     <div className='w-full'>
-                    <Typography variant="h6" noWrap>
-                        <div className='flex justify-between w-full items-center'>
-                            <h1 className='  font-bold font-lobster text-3xl '>ShoppingApp</h1>
-                            <IconButton aria-label="cart">
-                                <StyledBadge badgeContent={8} color="secondary">
-                                    <div className='text-white'>
-                                        <ShoppingCartIcon fontSize='large' />
-                                    </div>
-                                </StyledBadge>
-                            </IconButton>
-                        </div>
-                    </Typography>
+                        <Typography variant="h6" noWrap>
+                            <div className='flex justify-between w-full items-center'>
+                                <h1 className='  font-bold font-lobster text-3xl '>ShoppingApp</h1>
+                                <Link to={"/Cart"}>
+                                    <IconButton aria-label="cart">
+                                        <StyledBadge badgeContent={8} color="secondary">
+                                            <div className='text-white'>
+                                                <ShoppingCartIcon fontSize='large' />
+                                            </div>
+                                        </StyledBadge>
+                                    </IconButton>
+                                </Link>
+                            </div>
+                        </Typography>
                     </div>
                 </Toolbar>
             </AppBar>
@@ -161,67 +168,48 @@ export default function PersistentDrawerLeft() {
                 </div>
                 <Divider />
                 <List>
-                    <ListItem button >
-                        <ListItemText primary="HomePage" />
-                    </ListItem>
+                    <Link to={"/"}>
+                        <ListItem button >
+                            <ListItemIcon><Home></Home></ListItemIcon>
+                            <ListItemText primary="Home" />
+                        </ListItem>
+                    </Link>
 
+                    <Link to={"/Login"}>
+                        <ListItem button >
+                            <ListItemIcon><Person></Person></ListItemIcon>
+                            <ListItemText primary="Login" />
 
+                        </ListItem>
+                    </Link>
+                    <Link to={"/SignUp"}>
                     <ListItem button >
-                        <ListItemText primary="Products" />
+                    <ListItemIcon><Email></Email></ListItemIcon>
+                        <ListItemText primary="Sign Up" />
                     </ListItem>
-                    <ListItem button >
-                        <ListItemText primary="Menu" />
-                    </ListItem>
+                    </Link>
 
                 </List>
                 <Divider />
                 <List>
 
                     <ListItem button >
-
+                        <ListItemIcon><PermContactCalendar></PermContactCalendar></ListItemIcon>
                         <ListItemText primary={"Events"} />
                     </ListItem>
                     <ListItem button >
-
+                        <ListItemIcon><Create></Create></ListItemIcon>
                         <ListItemText primary={"Blog"} />
                     </ListItem>
                     <ListItem button >
-
+                    <ListItemIcon><CallTwoTone></CallTwoTone></ListItemIcon>
+                      
                         <ListItemText primary={"Contact"} />
                     </ListItem>
 
                 </List>
             </Drawer>
-            {/* <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <div className={classes.drawerHeader} />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-          facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-          gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-          donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-          Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-          imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-          arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-          donec massa sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-          facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-          tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-          consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-          vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-          hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-          tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-          nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-          accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-      </main> */}
+         
         </div>
     );
 }
