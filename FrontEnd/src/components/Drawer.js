@@ -102,11 +102,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft({cart}) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-
+    // console.log(cart) ;
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -114,6 +114,8 @@ export default function PersistentDrawerLeft() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    
 
     return (
         <div className={classes.root}>
@@ -140,7 +142,7 @@ export default function PersistentDrawerLeft() {
                                 <h1 className='  font-bold font-lobster text-3xl '>ShoppingApp</h1>
                                 <Link to={"/Cart"}>
                                     <IconButton aria-label="cart">
-                                        <StyledBadge badgeContent={8} color="secondary">
+                                        <StyledBadge badgeContent={12} color="secondary">
                                             <div className='text-white'>
                                                 <ShoppingCartIcon fontSize='large' />
                                             </div>
@@ -188,15 +190,19 @@ export default function PersistentDrawerLeft() {
                             <ListItemText primary="Sign Up" />
                         </ListItem>
                     </Link>
-                { localStorage.getItem('jwt') &&   <Link to={"/"}>
+                { localStorage.getItem('jwt') && <button onClick={()=>{localStorage.removeItem('jwt')}}>
+                <Link to={"/"}>
                         <ListItem button >
-
+                         {/* <button> */}
                             <ListItemIcon>
                                 <ExitToApp></ExitToApp>
                             </ListItemIcon>
                             <ListItemText primary={"Logout"} />
+                            {/* </button> */}
+                            
                         </ListItem>
                     </Link>
+                </button> 
                     }
                 </List>
             </Drawer>

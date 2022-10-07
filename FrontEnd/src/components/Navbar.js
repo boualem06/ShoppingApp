@@ -13,7 +13,7 @@ const StyledBadge = withStyles((theme) => ({
     },
 }))(Badge);
 
-const Navbar = () => {
+const Navbar = ({cart}) => {
     return (
         <div className='bg-gradient-to-r from-orange-600    to-orange-700 px-4'>
             <div className=" flex justify-between items-center lg:px-16 ">
@@ -40,7 +40,7 @@ const Navbar = () => {
                 <Link to={"/Cart"}>
                 <div >
                     <IconButton aria-label="cart">
-                        <StyledBadge badgeContent={8} color="secondary">
+                        <StyledBadge badgeContent={10} color="secondary">
                               
                             <div className='text-white '>
                                 <ShoppingCartIcon fontSize='large' />

@@ -1,7 +1,45 @@
 import pizza from '../img/pizza.png'
 import Checkbox from '@material-ui/core/Checkbox';
 import NavbarResp from './NavbarResp';
-const Detail = () => {
+import { useEffect, useState } from 'react';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+const useStyles = makeStyles((theme) => ({
+    button: {
+      display: 'block',
+      marginTop: theme.spacing(2),
+    },
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+  }));
+const Detail = ({ element }) => {
+    const classes = useStyles();
+    const [size,setSize]=useState("Small")
+const getSize=(e)=>{
+    setSize(e.target.textContent)
+    // console.log()
+}
+
+const [additional,setAddittional]=useState({
+    Double_ingredients:false,
+    Extra_cheese:false,
+    spicy_sauce:false,
+    garlic_sauce:false
+}) ;
+    // const modify_additional=(e)=>{
+    //     additional.Double_ingredients ? setAddittional({...additional,Double_ingredients:false}):setAddittional({...additional,Double_ingredients:true})
+
+        
+    //     console.log(e.target.value) ;
+
+    // }
     return (
         <div>
 
@@ -11,15 +49,15 @@ const Detail = () => {
                     <img src={pizza} alt="picture"></img>
                 </div>
                 <div className='mt-16 text-center md:text-left'>
-                    <h1 className='text-2xl font-bold mb-6 lg:mb-10 '>CAMPAGNOLA</h1>
-                    <h1 className='text-red-500 underline font-bold text-2xl mb-6 lg:mb-10'>$19.9</h1>
-                    <p className='mb-6 lg:mb-10'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis arcu purus, rhoncus fringilla vestibulum vel, dignissim vel ante. Nulla facilisi. Nullam a urna sit amet tellus pellentesque egestas in in ante</p>
+                    <h1 className='text-2xl font-bold mb-6 lg:mb-10 '>{element.name}</h1>
+                    <h1 className='text-red-500 underline font-bold text-2xl mb-6 lg:mb-10'>$ {element.price}</h1>
+                    <p className='mb-6 lg:mb-10'>{element.description}</p>
                     <div className='mb-6 lg:mb-10'>
                         <h1 className='text-xl font-bold mb-2 '>Choose the size</h1>
                         <div className='flex grid gap-4 grid-cols-3 '>
-                            <button className='border rounded-full border-orange-500 hover:bg-gradient-to-r hover:from-orange-600    hover:to-orange-700 hover:text-white   ' >Small</button>
-                            <button className='border rounded-full border-orange-500 hover:bg-gradient-to-r hover:from-orange-600    hover:to-orange-700 hover:text-white'>Medium</button>
-                            <button className='border rounded-full border-orange-500 hover:bg-gradient-to-r hover:from-orange-600    hover:to-orange-700 hover:text-white'>Large</button>
+                            <button  className={(size==="Small") ? "border py-1 rounded-full border-orange-500 bg-gradient-to-r from-orange-600    to-orange-700 text-white":"border py-1 rounded-full border-orange-500 hover:bg-gradient-to-r hover:from-orange-600    hover:to-orange-700 hover:text-white"} onClick={(e)=>{getSize(e)}}  >Small</button>
+                            <button onClick={(e)=>{getSize(e)}} className={(size==="Medium") ? "border py-1 rounded-full border-orange-500 bg-gradient-to-r from-orange-600    to-orange-700 text-white":"border py-1 rounded-full border-orange-500 hover:bg-gradient-to-r hover:from-orange-600    hover:to-orange-700 hover:text-white"}>Medium</button>
+                            <button onClick={(e)=>{getSize(e)}} className={(size==="Large") ? "border py-1 rounded-full border-orange-500 bg-gradient-to-r from-orange-600    to-orange-700 text-white":"border py-1 rounded-full border-orange-500 hover:bg-gradient-to-r hover:from-orange-600    hover:to-orange-700 hover:text-white"}>Large</button>
                         </div>
                     </div>
 
@@ -28,6 +66,7 @@ const Detail = () => {
                         <div className='grid gap-2 grid-cols-4'>
                             <div className='flex justify-center items-center'>
                                 <Checkbox
+                                    // onClick={(e)=>{modify_additional()}}
                                     value="checkedA"
                                     inputProps={{ 'aria-label': 'Checkbox A' }}
                                 />
@@ -37,6 +76,7 @@ const Detail = () => {
 
                             <div className='flex justify-center items-center'>
                                 <Checkbox
+                                    onClick={()=>{}}
                                     value="checkedA"
                                     inputProps={{ 'aria-label': 'Checkbox A' }}
                                 />
@@ -68,6 +108,7 @@ const Detail = () => {
                 </div>
 
             </div>
+            
         </div>
     )
 }

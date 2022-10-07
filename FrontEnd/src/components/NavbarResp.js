@@ -1,13 +1,13 @@
 import Navbar from "./Navbar";
 import PersistentDrawerLeft from "./Drawer";
-const NavbarResp=({Cart})=>{
+const NavbarResp=({cart})=>{
     return(
         <div>
              <div className="hidden md:block">
-                <Navbar Cart={Cart} ></Navbar>
+                <Navbar cart={cart} ></Navbar>
             </div>
             <div className="md:hidden ">
-                <PersistentDrawerLeft ></PersistentDrawerLeft>
+                <PersistentDrawerLeft cart={cart} ></PersistentDrawerLeft>
             </div>
         </div>
     )

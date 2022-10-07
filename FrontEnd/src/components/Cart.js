@@ -62,7 +62,7 @@ const rows = [
     },
 ];
 
-export default function Cart() {
+export default function Cart({cart,setCart}) {
     const classes = useStyles();
 
     return (
@@ -82,7 +82,7 @@ export default function Cart() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                    {cart.map((row) => (
                         <TableRow key={row.name}>
                             <TableCell align="right"><img className='w-20 h-20' src={pizza} alt="Image"></img></TableCell>
                             <TableCell component="th" scope="row">

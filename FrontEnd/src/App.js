@@ -19,28 +19,50 @@ import Main from "./components/Main";
 import Test from "./components/Main";
 import List from "./components/List";
 import { useState } from "react";
+
 function App() {
-
-  // const [Cart,setCart]=useState([]) ;
-
+    let hello ;
+    // const [Cart,setCart]=useState(true) ;
+    const [element,setElement]=useState({}) ;
+    const [cart,setCart]=useState([
+      
+        {
+            name: "Campagnoia",
+            extras: "Spicy Sauce, Garlic Sauce",
+            quantity: 2,
+            price: "19.90",
+    
+        },
+        {
+            name: "Neapolitan",
+            extras: "Spicy Sauce, Garlic Sauce",
+            quantity: 2,
+            price: "22.90",
+        },
+        {
+            name: "Campagnoia",
+            extras: "Spicy Sauce, Garlic Sauce",
+            quantity: 2,
+            price: "19.90",
+    
+        },
+    ]) ;
+    // console.log(cart.length)
+    // console.log(element)
   return (
     <Router>
       <Routes>
       <Route  path={'/'} element={<Home />}></Route>
         <Route element={<PrivateRoutes />}>
-          <Route path={'/Home'} element={< Main  />} />
+          <Route path={'/Home'} element={< Main cart={cart} setCart={setCart} element={element} setElement={setElement}/>} />
           <Route path={'/Admin'} element={<Admin />}></Route>
-          <Route path={'/Cart'} element={<Cart />}></Route>
-          <Route path={'/Detail'} element={<Detail />}></Route>
+          <Route path={'/Cart'} element={<Cart cart={cart} setCart={setCart} />}></Route>
+          <Route path={'/Detail'} element={<Detail element={element}/>}></Route>
         </Route>
         <Route path={'/Login'} element={<Login />}></Route>
         <Route path={'/SignUp'} element={<SignUp />}></Route>
       </Routes>
     </Router>
-
-    // <List></List>
-    
-
 
 
   )
