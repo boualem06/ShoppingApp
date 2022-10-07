@@ -16,32 +16,32 @@ import Login from "./components/Login";
 import SignUp from "./components/Sign_Up";
 import PrivateRoutes from "./components/PrivateRoutes";
 import Main from "./components/Main";
+import Test from "./components/Main";
+import List from "./components/List";
+import { useState } from "react";
 function App() {
+
+  // const [Cart,setCart]=useState([]) ;
 
   return (
     <Router>
       <Routes>
+      <Route  path={'/'} element={<Home />}></Route>
         <Route element={<PrivateRoutes />}>
-          <Route path={'/'} element={< Main />} />
+          <Route path={'/Home'} element={< Main  />} />
           <Route path={'/Admin'} element={<Admin />}></Route>
           <Route path={'/Cart'} element={<Cart />}></Route>
           <Route path={'/Detail'} element={<Detail />}></Route>
         </Route>
-        <Route  path={'/Home'} element={<Home />}></Route>
         <Route path={'/Login'} element={<Login />}></Route>
         <Route path={'/SignUp'} element={<SignUp />}></Route>
       </Routes>
     </Router>
-    // <Router>
-    //   <Routes>
-    //     <Route  path={'/'} element={<Home />}></Route>
-    //     <Route  path={'/Admin'} element={<Admin />}></Route>
-    //     <Route  path={'/Cart'} element={<Cart />}></Route>
-    //     <Route  path={'/Detail'} element={<Detail />}></Route>
-    //     <Route  path={'/Login'} element={<Login />}></Route>
-    //     <Route  path={'/SignUp'} element={<SignUp />}></Route>
-    //   </Routes>
-    // </Router>
+
+    // <List></List>
+    
+
+
 
   )
 }

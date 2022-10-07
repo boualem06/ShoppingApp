@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import pizza from '../img/pizza.png'
 import NavbarResp from './NavbarResp';
+
 import Footer from './Footer';
 const useStyles = makeStyles({
     table: {

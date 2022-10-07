@@ -26,10 +26,10 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import CallTwoTone from '@material-ui/icons/CallTwoTone'
 import { withStyles } from '@material-ui/core/styles';
 import Person from '@material-ui/icons/Person'
-import Email from '@material-ui/icons/Email' ;
-import Create from '@material-ui/icons/Create' ;
- import PermContactCalendar from '@material-ui/icons/PermContactCalendar'
- 
+import Email from '@material-ui/icons/Email';
+import Create from '@material-ui/icons/Create';
+import PermContactCalendar from '@material-ui/icons/PermContactCalendar'
+import ExitToApp from '@material-ui/icons/ExitToApp'
 const drawerWidth = 240;
 
 const StyledBadge = withStyles((theme) => ({
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'none',
     },
     drawer: {
-        background:"#C5430C",
+        background: "#C5430C",
         width: drawerWidth,
         flexShrink: 0,
     },
@@ -168,7 +168,7 @@ export default function PersistentDrawerLeft() {
                 </div>
                 <Divider />
                 <List>
-                    <Link to={"/"}>
+                    <Link to={"/Home"}>
                         <ListItem button >
                             <ListItemIcon><Home></Home></ListItemIcon>
                             <ListItemText primary="Home" />
@@ -183,33 +183,24 @@ export default function PersistentDrawerLeft() {
                         </ListItem>
                     </Link>
                     <Link to={"/SignUp"}>
-                    <ListItem button >
-                    <ListItemIcon><Email></Email></ListItemIcon>
-                        <ListItemText primary="Sign Up" />
-                    </ListItem>
+                        <ListItem button >
+                            <ListItemIcon><Email></Email></ListItemIcon>
+                            <ListItemText primary="Sign Up" />
+                        </ListItem>
                     </Link>
+                { localStorage.getItem('jwt') &&   <Link to={"/"}>
+                        <ListItem button >
 
-                </List>
-                <Divider />
-                <List>
-
-                    <ListItem button >
-                        <ListItemIcon><PermContactCalendar></PermContactCalendar></ListItemIcon>
-                        <ListItemText primary={"Events"} />
-                    </ListItem>
-                    <ListItem button >
-                        <ListItemIcon><Create></Create></ListItemIcon>
-                        <ListItemText primary={"Blog"} />
-                    </ListItem>
-                    <ListItem button >
-                    <ListItemIcon><CallTwoTone></CallTwoTone></ListItemIcon>
-                      
-                        <ListItemText primary={"Contact"} />
-                    </ListItem>
-
+                            <ListItemIcon>
+                                <ExitToApp></ExitToApp>
+                            </ListItemIcon>
+                            <ListItemText primary={"Logout"} />
+                        </ListItem>
+                    </Link>
+                    }
                 </List>
             </Drawer>
-         
+
         </div>
     );
 }

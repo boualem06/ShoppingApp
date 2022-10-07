@@ -10,7 +10,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
 import { useState } from "react";
 import { Navigate } from "react-router-dom"
 // import Cookies from "js-cookie";
@@ -46,7 +45,52 @@ export default function SignIn() {
   const [data, setData] = useState({})
   const[isLogin,setIsLogin]=useState(false) ;
   const classes = useStyles();
-  
+  const validateinfo = async (event) => {
+
+    event.preventDefault();
+    if (formdata.email && formdata.password) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+      if (!regex.test(formdata.email)) {
+        setError(true);
+        setEroros({ ...Errors, email: "email not valide" })
+      }
+      else {
+        setError(false)
+        let headersList = {
+          "Accept": "*/*",
+          "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+          "Content-Type": "application/json"
+        }
+
+        let bodyContent = JSON.stringify({
+          "email": formdata.email,
+          "password": formdata.password
+        }
+        );
+
+        let response = await fetch("http://localhost:5000/login", {
+          method: "POST",
+          body: bodyContent,
+          headers: headersList
+        });
+
+        let data = await response.json();
+        if (data.status == 400) {
+          setError2(true)
+          setData(data)
+        }
+        else {
+          setError2(false);
+          setData(data);
+          console.log("succeful")
+          localStorage.setItem('jwt', data.token)
+          setIsLogin(true) ;
+        }
+        console.log(data);
+      }
+    }
+
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -59,7 +103,7 @@ export default function SignIn() {
         </Typography>
         {Error2 && <div className='mt-2 font-bold text-red-500'>{data.message}</div>}
 
-        <form  className={classes.form} >
+        <form onSubmit={validateinfo} className={classes.form} >
           <TextField
             onChange={(e) => { setFormdata({ ...formdata, email: e.target.value }) }}
             variant="outlined"
@@ -87,7 +131,10 @@ export default function SignIn() {
           />
 
 
-         
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
           
           <Button
             // onClick={()=>{console.log("hello world")}}
@@ -99,11 +146,11 @@ export default function SignIn() {
           >
             
             Sign In
-          { isLogin && <Navigate to={"/"}></Navigate>}
+          { isLogin && <Navigate to={"/Home"}></Navigate>}
           </Button>
           
           <div className='w-full flex justify-end text-blue-600 hover:underline' >
-            <Link to="/SignUp">
+            <Link to="/Signup">
               Don't have an account?
             </Link>
           </div>
