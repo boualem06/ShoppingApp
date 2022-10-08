@@ -9,7 +9,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import pizza from '../img/pizza.png'
 import NavbarResp from './NavbarResp';
-
 import Footer from './Footer';
 const useStyles = makeStyles({
     table: {
@@ -18,85 +17,52 @@ const useStyles = makeStyles({
 });
 
 
-const rows = [
-    {
-        name: "Campagnoia",
-        extras: "Spicy Sauce, Garlic Sauce",
-        quantity: 2,
-        price: "19.90",
 
-    },
-    {
-        name: "Neapolitan",
-        extras: "Spicy Sauce, Garlic Sauce",
-        quantity: 2,
-        price: "22.90",
-    },
-    {
-        name: "Campagnoia",
-        extras: "Spicy Sauce, Garlic Sauce",
-        quantity: 2,
-        price: "19.90",
 
-    },
-    {
-        name: "Campagnoia",
-        extras: "Spicy Sauce, Garlic Sauce",
-        quantity: 2,
-        price: "19.90",
-
-    },
-    {
-        name: "Campagnoia",
-        extras: "Spicy Sauce, Garlic Sauce",
-        quantity: 2,
-        price: "19.90",
-
-    },
-    {
-        name: "Campagnoia",
-        extras: "Spicy Sauce, Garlic Sauce",
-        quantity: 2,
-        price: "19.90",
-
-    },
-];
-
-export default function Cart({cart,setCart}) {
+export default function Cart({ cart, setCart }) {
     const classes = useStyles();
 
     return (
-        <div>
+        <div style={{ height: "100vh" }} className="h-full">
 
-        <NavbarResp></NavbarResp>
-        <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                    <TableRow className=''>
-                        <TableCell ><div className='font-bold text-lg'>Product</div></TableCell>
-                        <TableCell><div className='font-bold text-lg'>Name</div></TableCell>
-                        <TableCell align="right"><div className='font-bold text-lg'>Extras</div></TableCell>
-                        <TableCell align="right"><div className='font-bold text-lg'>Price</div></TableCell>
-                        <TableCell align="right"><div className='font-bold text-lg'>Quantity</div></TableCell>
-                        <TableCell align="right"><div className='font-bold text-lg'>Total</div></TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {cart.map((row) => (
-                        <TableRow key={row.name}>
-                            <TableCell align="right"><img className='w-20 h-20' src={pizza} alt="Image"></img></TableCell>
-                            <TableCell component="th" scope="row">
-                               <div className='text-red-500 font-bold'>{row.name}</div> 
-                            </TableCell>
-                            <TableCell align="right">{row.extras}</TableCell>
-                            <TableCell align="right">${row.price}</TableCell>
-                            <TableCell align="right">{row.quantity}</TableCell>
-                            <TableCell align="right"><div className='font-bold text-red-500'>${row.quantity * row.price}</div></TableCell>
+            <NavbarResp></NavbarResp>
+            <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+                    <TableHead>
+                        <TableRow className=''>
+                            <TableCell ><div className='font-bold text-lg'>Product</div></TableCell>
+                            <TableCell><div className='font-bold text-lg'>Name</div></TableCell>
+                            <TableCell align="right"><div className='font-bold text-lg'>Extras</div></TableCell>
+                            <TableCell align="right"><div className='font-bold text-lg'>Price</div></TableCell>
+                            <TableCell align="right"><div className='font-bold text-lg'>Quantity</div></TableCell>
+                            <TableCell align="right"><div className='font-bold text-lg'>Total</div></TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {cart.map((row) => (
+                            <TableRow key={row.name}>
+                                <TableCell align="right"><img className='w-20 h-20' src={pizza} alt="Image"></img></TableCell>
+                                <TableCell component="th" scope="row">
+                                    <div className='text-red-500 font-bold'>{row.name}</div>
+                                </TableCell>
+                                <TableCell align="right">{row.extras}</TableCell>
+                                <TableCell align="right">${row.price}</TableCell>
+                                <TableCell align="right">{row.quantity}</TableCell>
+                                <TableCell align="right"><div className='font-bold text-red-500'>${row.quantity * row.price}</div></TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <div style={{
+                position: "static",
+                bottom: "0%",
+                width: "100%",
+               
+            }} className='position relative bottom-0 top-100'>
+                <Footer></Footer>
+            </div>
+
         </div>
     );
 }

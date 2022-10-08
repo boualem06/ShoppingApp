@@ -46,6 +46,66 @@ function App() {
             price: "19.90",
     
         },
+        {
+          name: "Campagnoia",
+          extras: "Spicy Sauce, Garlic Sauce",
+          quantity: 2,
+          price: "19.90",
+  
+      },
+      {
+          name: "Neapolitan",
+          extras: "Spicy Sauce, Garlic Sauce",
+          quantity: 2,
+          price: "22.90",
+      },
+      {
+          name: "Campagnoia",
+          extras: "Spicy Sauce, Garlic Sauce",
+          quantity: 2,
+          price: "19.90",
+  
+      },
+      {
+        name: "Campagnoia",
+        extras: "Spicy Sauce, Garlic Sauce",
+        quantity: 2,
+        price: "19.90",
+
+    },
+    {
+        name: "Neapolitan",
+        extras: "Spicy Sauce, Garlic Sauce",
+        quantity: 2,
+        price: "22.90",
+    },
+    {
+        name: "Campagnoia",
+        extras: "Spicy Sauce, Garlic Sauce",
+        quantity: 2,
+        price: "19.90",
+
+    },
+    {
+      name: "Campagnoia",
+      extras: "Spicy Sauce, Garlic Sauce",
+      quantity: 2,
+      price: "19.90",
+
+  },
+  {
+      name: "Neapolitan",
+      extras: "Spicy Sauce, Garlic Sauce",
+      quantity: 2,
+      price: "22.90",
+  },
+  {
+      name: "Campagnoia",
+      extras: "Spicy Sauce, Garlic Sauce",
+      quantity: 2,
+      price: "19.90",
+
+  },
     ]) ;
 
     const [size, setSize] = useState("Small")
@@ -60,7 +120,9 @@ function App() {
         garlic_sauce: false
     });
 
+
     const [number,setNumber]=useState(1) ;
+
 
 
     // console.log(cart.length)

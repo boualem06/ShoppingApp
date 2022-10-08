@@ -1,7 +1,7 @@
 import bg from '../img/bg.png'
 const Footer = () => {
     return (
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-3   bg-black mt-20 px-4">
+        <div className="grid   gap-4 grid-cols-1 md:grid-cols-3   bg-black mt-20 px-4 py-4">
             {/* <img src={bg} className=' h-full'></img> */}
             {/* <div style={{ backgroundImage: `url(${bg})`, height: "100vh" }} className="bg-cover"></div> */}
             <h1 className='text-xl font-bold text-white text-center flex justify-center items-center'>OH YES,WE DID YOUR PIZZA</h1>

@@ -8,7 +8,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import { Navigate } from "react-router-dom"
 import Select from '@material-ui/core/Select';
+import Footer from './Footer';
 const useStyles = makeStyles((theme) => ({
     button: {
         display: 'block',
@@ -21,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Detail = ({ element , size ,setSize ,number,setNumber,additional ,setAddittional,cart,setCart }) => {
     const classes = useStyles();
+    const [done,setDone]=useState(false) ;
     // const [size, setSize] = useState("Small")
     const getSize = (e) => {
         setSize(e.target.textContent)
@@ -38,27 +41,13 @@ const Detail = ({ element , size ,setSize ,number,setNumber,additional ,setAddit
             quantity: number,
             price: element.price,
         }
-
-        console.log(ccart) ;
-    //    setCart([...cart,{
-    //     name: element.name,
-    //     extras: "Spicy Sauce, Garlic Sauce",
-    //     quantity: 2,
-    //     price: "19.90",
-    //    }])
+        setCart([...cart,ccart]) ;
+        setDone(true) ;
     }
-    // const [additional, setAddittional] = useState({
-    //     Double_ingredients: false,
-    //     Extra_cheese: false,
-    //     spicy_sauce: false,
-    //     garlic_sauce: false
-    // });
-
-    // const [number,setNumber]=useState("1") ;
 
 
     return (
-        <div>
+        <div style={{height:"100%"}} className='h-full'>
 
             <NavbarResp></NavbarResp>
             <div className="grid gap-2 md:gap-20 grid-cols-1 md:grid-cols-2 py-2 px-4 lg:px-16 md:px-6 flex flex-col items-center justify-center">
@@ -120,7 +109,7 @@ const Detail = ({ element , size ,setSize ,number,setNumber,additional ,setAddit
                     </div>
                     < div className='flex justify-center items-center md:'>
                         <div>
-                            <select onChange={(e) => {setNumber(e.target.value)}} name="number" id="number" className='mr-4  border rounded px-2 py-1'>
+                            <select onChange={(e) => {setNumber(parseInt(e.target.value))}} name="number" id="number" className='mr-4  border rounded px-2 py-1'>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -136,8 +125,20 @@ const Detail = ({ element , size ,setSize ,number,setNumber,additional ,setAddit
                         </div>
                     </div>
                 </div>
+                {done && <Navigate to={"/Cart"}></Navigate>}
 
             </div>
+            <div style={{
+                position: "static",
+                bottom: "0%",
+                width: "100%",
+               
+            }} className='position relative bottom-0 top-100'>
+                <Footer></Footer>
+            </div>
+
+
+            
 
         </div >
     )
