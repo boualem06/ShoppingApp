@@ -13,7 +13,8 @@ const StyledBadge = withStyles((theme) => ({
     },
 }))(Badge);
 
-const Navbar = ({ cart }) => {
+const Navbar = () => {
+    
     return (
         <div className='bg-gradient-to-r from-orange-600  py-1  to-orange-700 px-4'>
             <div className=" flex justify-between items-center lg:px-16 ">

@@ -25,7 +25,7 @@ export default function Cart({ cart, setCart }) {
     return (
         <div style={{ height: "100vh" }} className="h-full">
 
-            <NavbarResp></NavbarResp>
+            <NavbarResp cart={cart}></NavbarResp>
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
