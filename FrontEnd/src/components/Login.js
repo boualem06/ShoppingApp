@@ -150,7 +150,7 @@ export default function SignIn() {
           </Button>
           
           <div className='w-full flex justify-end text-blue-600 hover:underline' >
-            <Link to="/Signup">
+            <Link to="/SignUp">
               Don't have an account?
             </Link>
           </div>

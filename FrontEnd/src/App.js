@@ -47,6 +47,22 @@ function App() {
     
         },
     ]) ;
+
+    const [size, setSize] = useState("Small")
+    const getSize = (e) => {
+        setSize(e.target.textContent)
+    }
+
+    const [additional, setAddittional] = useState({
+        Double_ingredients: false,
+        Extra_cheese: false,
+        spicy_sauce: false,
+        garlic_sauce: false
+    });
+
+    const [number,setNumber]=useState(1) ;
+
+
     // console.log(cart.length)
     // console.log(element)
   return (
@@ -57,7 +73,7 @@ function App() {
           <Route path={'/Home'} element={< Main cart={cart} setCart={setCart} element={element} setElement={setElement}/>} />
           <Route path={'/Admin'} element={<Admin />}></Route>
           <Route path={'/Cart'} element={<Cart cart={cart} setCart={setCart} />}></Route>
-          <Route path={'/Detail'} element={<Detail element={element}/>}></Route>
+          <Route path={'/Detail'} element={<Detail size={size} setSize={setSize} number={number} setNumber={setNumber} additional={additional} setAddittional={setAddittional}  element={element} cart={cart} setCart={setCart}/>}></Route>
         </Route>
         <Route path={'/Login'} element={<Login />}></Route>
         <Route path={'/SignUp'} element={<SignUp />}></Route>

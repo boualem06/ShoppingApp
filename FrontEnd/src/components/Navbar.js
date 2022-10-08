@@ -13,9 +13,9 @@ const StyledBadge = withStyles((theme) => ({
     },
 }))(Badge);
 
-const Navbar = ({cart}) => {
+const Navbar = ({ cart }) => {
     return (
-        <div className='bg-gradient-to-r from-orange-600    to-orange-700 px-4'>
+        <div className='bg-gradient-to-r from-orange-600  py-1  to-orange-700 px-4'>
             <div className=" flex justify-between items-center lg:px-16 ">
 
                 <div className='flex items-center text-white'>
@@ -26,34 +26,40 @@ const Navbar = ({cart}) => {
                     </div>
                 </div>
 
-
                 <div>
-                    <span className='text-white mr-8 lg:text-lg  cursor-pointer md:hover:text-lg hover:font-bold lg:hover:text-xl'>Home page</span>
-                    <span className='text-white mr-8 lg:text-lg  cursor-pointer md:hover:text-lg hover:font-bold lg:hover:text-xl'>Products</span>
-                    <span className='text-white mr-8 lg:text-lg  cursor-pointer md:hover:text-lg hover:font-bold lg:hover:text-xl'>Menu </span>
-                    <span className='text-white text-xl  cursor-pointer mr-8  font-lobster lg:text-2xl md:hover:text-2xl hover:font-bold lg:hover:text-3xl'>ShoppingApp</span>
-                    <span className='text-white mr-8 lg:text-lg  cursor-pointer md:hover:text-lg hover:font-bold lg:hover:text-xl'>Events</span>
-                    <span className='text-white mr-8 lg:text-lg  cursor-pointer md:hover:text-lg hover:font-bold lg:hover:text-xl'>Blog</span>
-                    <span className='text-white mr-8 lg:text-lg  cursor-pointer md:hover:text-lg hover:font-bold lg:hover:text-xl'>Contact</span>
+                    <span className='text-white text-5xl  cursor-pointer mr-8  font-lobster l hover:font-bold '>ShoppingApp</span>
                 </div>
-                
-                <Link to={"/Cart"}>
-                <div >
-                    <IconButton aria-label="cart">
-                        <StyledBadge badgeContent={10} color="secondary">
-                              
-                            <div className='text-white '>
-                                <ShoppingCartIcon fontSize='large' />
-                            </div>
-                            
-                        </StyledBadge>
-                    </IconButton>
+
+                <div className='flex justify-center items-center'>
+                    {!localStorage.getItem('jwt') ?
+                        <div className=''>
+                            <span className='text-white mr-8 text-xl  cursor-pointer  hover:font-bold '><Link to={"/Login"}>Login</Link></span>
+                            <span className='text-white mr-8 text-xl  cursor-pointer  hover:font-bold  '><Link to={"/SignUp"}>Sign Up</Link> </span>
+                        </div> :
+                        <div>
+                            <span className='text-white mr-8 text-xl  cursor-pointer  hover:font-bold'><Link to={"/Home"}>Home</Link></span>
+                            <span onClick={() => { localStorage.removeItem('jwt'); window.location.reload() }} className='text-white mr-8 text-xl  cursor-pointer  hover:font-bold'>Logout</span>
+                        </div>
+
+                    }
+                    {localStorage.getItem('jwt') && <Link to={"/Cart"}>
+                        <IconButton aria-label="cart">
+                            <StyledBadge badgeContent={10} color="secondary">
+
+                                <div className='text-white '>
+                                    <ShoppingCartIcon fontSize='large' />
+                                </div>
+
+                            </StyledBadge>
+                        </IconButton>
+                    </Link>}
+                    
                 </div>
-                </Link>
-                
+
+
             </div>
         </div>
-       
+
 
     )
 }

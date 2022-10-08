@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PersistentDrawerLeft({cart}) {
+export default function PersistentDrawerLeft({ cart }) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -115,7 +115,7 @@ export default function PersistentDrawerLeft({cart}) {
         setOpen(false);
     };
 
-    
+
 
     return (
         <div className={classes.root}>
@@ -176,33 +176,36 @@ export default function PersistentDrawerLeft({cart}) {
                             <ListItemText primary="Home" />
                         </ListItem>
                     </Link>
-
+                    {!localStorage.getItem('jwt') &&
                     <Link to={"/Login"}>
                         <ListItem button >
                             <ListItemIcon><Person></Person></ListItemIcon>
                             <ListItemText primary="Login" />
 
                         </ListItem>
-                    </Link>
+                    </Link>}
+                    {!localStorage.getItem('jwt') &&
                     <Link to={"/SignUp"}>
                         <ListItem button >
                             <ListItemIcon><Email></Email></ListItemIcon>
                             <ListItemText primary="Sign Up" />
                         </ListItem>
                     </Link>
-                { localStorage.getItem('jwt') && <button onClick={()=>{localStorage.removeItem('jwt')}}>
-                <Link to={"/"}>
-                        <ListItem button >
-                         {/* <button> */}
-                            <ListItemIcon>
-                                <ExitToApp></ExitToApp>
-                            </ListItemIcon>
-                            <ListItemText primary={"Logout"} />
-                            {/* </button> */}
-                            
-                        </ListItem>
-                    </Link>
-                </button> 
+                    }
+                    {localStorage.getItem('jwt') &&
+                        <button onClick={() => { localStorage.removeItem('jwt') }}>
+                            <Link to={"/"}>
+                                <ListItem button >
+                                    {/* <button> */}
+                                    <ListItemIcon>
+                                        <ExitToApp></ExitToApp>
+                                    </ListItemIcon>
+                                    <ListItemText primary={"Logout"} />
+                                    {/* </button> */}
+
+                                </ListItem>
+                            </Link>
+                        </button>
                     }
                 </List>
             </Drawer>
