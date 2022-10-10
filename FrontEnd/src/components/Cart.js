@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -21,6 +21,13 @@ const useStyles = makeStyles({
 
 export default function Cart({ cart, setCart }) {
     const classes = useStyles();
+    const [test,setTest]=useState([]); 
+    const delet=(row)=>{
+        console.log(row) ;
+        //  setCart(cart.map((ele)=>(ele!==row))) ;
+        setCart(cart.filter((ele)=>{return ele!==row})) ;
+        // console.log(tes) ;
+    }
 
     return (
         <div style={{ height: "100vh" }} className="h-full">
@@ -36,6 +43,7 @@ export default function Cart({ cart, setCart }) {
                             <TableCell align="right"><div className='font-bold text-lg'>Price</div></TableCell>
                             <TableCell align="right"><div className='font-bold text-lg'>Quantity</div></TableCell>
                             <TableCell align="right"><div className='font-bold text-lg'>Total</div></TableCell>
+                            <TableCell align="right"><div className='font-bold text-lg'></div></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -49,6 +57,7 @@ export default function Cart({ cart, setCart }) {
                                 <TableCell align="right">${row.price}</TableCell>
                                 <TableCell align="right">{row.quantity}</TableCell>
                                 <TableCell align="right"><div className='font-bold text-red-500'>${row.quantity * row.price}</div></TableCell>
+                                <TableCell align="right"><button className='bg-red-500 font-bold border rounded-full px-2 py-1 text-white hover:bg-red-600 hover:shadow-md ' onClick={()=>{delet(row)}}>X</button></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
