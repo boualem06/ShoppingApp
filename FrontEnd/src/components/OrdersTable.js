@@ -7,7 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import pizza from '../img/pizza.png'
+import pizza from '../img/pizza.png';
+import { useState } from 'react';
 const useStyles = makeStyles({
     table: {
         minWidth: 100,
@@ -49,6 +50,7 @@ const rows = [
 
 ];
 const OrdersTable=()=>{
+    const [isServed,setIsServed]=useState(false) ;
     const classes = useStyles();
     return(<TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
@@ -62,15 +64,16 @@ const OrdersTable=()=>{
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <TableRow key={row.customer}>
+                    {rows.map((row,index) => (
+                        <TableRow key={index}>
                             <TableCell component="th" scope="row">
                                <div className='text-red-500 font-bold'>{row.customer}</div> 
                             </TableCell>
                             <TableCell align="right">${row.total}</TableCell>
-                            <TableCell align="right">${row.status}</TableCell>
+                            <TableCell align="right">{row.status}</TableCell>
                             <TableCell align="right">
-                                    <button className=' hover:bg-green-600 border bg-green-500 mr-2 text-white px-2'>Next stage</button>
+                                    {/* {isServed && <button  className='  border bg-gray-500 mr-2 text-white px-2'>Next stage</button>}
+                                   {!isServed && <button  onClick={()=>{setIsServed(true)}} className=' hover:bg-green-600 border bg-green-500 mr-2 text-white px-2'>Next stage</button>}  */}
                             </TableCell>
                         </TableRow>
                     ))}
