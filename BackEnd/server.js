@@ -1,7 +1,8 @@
 const express = require('express')
 const { default: mongoose } = require('mongoose')
 const UserRoutes = require("./routes/UserRoutes") ;
-const Image=require('./routes/Image')
+const Image=require('./routes/Image') ;
+const ProductRoutes=require('./routes/ProductRoutes')
 const app = express()
 const cors = require("cors");
 require("dotenv").config();
@@ -18,6 +19,7 @@ app.use(express.json({ limit: "1mb" }));
 app.use(express.static('public'));
 app.use(UserRoutes);
 app.use(Image) ;
+app.use(ProductRoutes) ;
 
  
   
