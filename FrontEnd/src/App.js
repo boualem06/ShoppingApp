@@ -20,6 +20,7 @@ import Test from "./components/Main";
 import List from "./components/List";
 import { useState } from "react";
 import Test2 from "./components/Test";
+import NewProduct from "./components/NewProduct";
 function App() {
     let hello ;
     // const [Cart,setCart]=useState(true) ;
@@ -122,7 +123,7 @@ function App() {
     //   </Routes>
     // </Router>
 
-    <Test2></Test2>
+    <NewProduct></NewProduct>
 
 
   )
