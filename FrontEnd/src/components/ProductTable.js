@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import pizza from '../img/pizza.png'
 import { useState } from 'react';
+import { Image } from 'cloudinary-react';
 const useStyles = makeStyles({
     table: {
         minWidth: 100,
@@ -17,77 +18,100 @@ const useStyles = makeStyles({
 
 
 
-const ProductTable=()=>{
-    const [rows,setRows] = useState([
-        {
-            name: "Campagnoia",
-            extras: "Spicy Sauce, Garlic Sauce",
-            quantity: 2,
-            price: "19.90",
-    
-        },
-        {
-            name: "Neapolitan",
-            extras: "Spicy Sauce, Garlic Sauce",
-            quantity: 2,
-            price: "22.90",
-        },
-        {
-            name: "Neapolitan",
-            extras: "Spicy Sauce, Garlic Sauce",
-            quantity: 2,
-            price: "22.90",
-        },
-        {
-            name: "Neapolitan",
-            extras: "Spicy Sauce, Garlic Sauce",
-            quantity: 2,
-            price: "22.90",
-        },
-        {
-            name: "Neapolitan",
-            extras: "Spicy Sauce, Garlic Sauce",
-            quantity: 2,
-            price: "22.90",
-        },
-        
-    ]);
+const ProductTable = () => {
+    // const [rows,setRows] = useState([
+    //     {
+    //         name: "Campagnoia",
+    //         extras: "Spicy Sauce, Garlic Sauce",
+    //         quantity: 2,
+    //         price: "19.90",
+
+    //     },
+    //     {
+    //         name: "Neapolitan",
+    //         extras: "Spicy Sauce, Garlic Sauce",
+    //         quantity: 2,
+    //         price: "22.90",
+    //     },
+    //     {
+    //         name: "Neapolitan",
+    //         extras: "Spicy Sauce, Garlic Sauce",
+    //         quantity: 2,
+    //         price: "22.90",
+    //     },
+    //     {
+    //         name: "Neapolitan",
+    //         extras: "Spicy Sauce, Garlic Sauce",
+    //         quantity: 2,
+    //         price: "22.90",
+    //     },
+    //     {
+    //         name: "Neapolitan",
+    //         extras: "Spicy Sauce, Garlic Sauce",
+    //         quantity: 2,
+    //         price: "22.90",
+    //     },
+
+    // ]);
+
+    const [rows, setRows] = useState([]);
+    const loadImages = async () => {
+        try {
+            const res = await fetch('http://localhost:5000/getProducts');
+            const data = await res.json();
+            console.log(data);
+            setRows(data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+    useEffect(() => {
+        loadImages();
+    }, []);
+
     const classes = useStyles();
-    const EditRow=(row)=>{
-        
+    const EditRow = (row) => {
+
     }
 
-    const delitRow=(row)=>{
-        let vars=rows.filter((ele)=>{return ele!==row}) ;
-        setRows(vars) ;
+    const delitRow = (row) => {
+        let vars = rows.filter((ele) => { return ele !== row });
+        setRows(vars);
     }
-    return(<TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                    <TableRow className=''>
-                        <TableCell ><div className='font-bold text-lg'>Product</div></TableCell>
-                        <TableCell><div className='font-bold text-lg'>Name</div></TableCell>                        <TableCell align="right"><div className='font-bold text-lg'>Price</div></TableCell>
-                        <TableCell align="right"><div className='font-bold text-lg'>Action</div></TableCell>
+    return (<TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+                <TableRow className=''>
+                    <TableCell ><div className='font-bold text-lg'>Product</div></TableCell>
+                    <TableCell><div className='font-bold text-lg'>Name</div></TableCell>                        <TableCell align="right"><div className='font-bold text-lg'>Price</div></TableCell>
+                    <TableCell align="right"><div className='font-bold text-lg'>Action</div></TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {rows.map((row, index) => (
+                    <TableRow key={index}>
+                        <TableCell align="right"><Image
+
+                            cloudName={"dc7suzbrg"}
+                            publicId={row.imageUrl}
+                            className="w-10 h-10"
+                            crop="scale"
+                        /></TableCell>
+
+                        <TableCell component="th" scope="row">
+                            <div className='text-red-500 font-bold'>{row.name}</div>
+                        </TableCell>
+                        <TableCell align="right">${row.price}</TableCell>
+                        <TableCell align="right">
+                            <div className='lg:flex'>
+                                <button onClick={() => { EditRow(row) }} className=' hover:bg-sky-600 border bg-sky-500 mr-2 text-white mb-2 lg:mb-0 lg:px-2 px-4'>Edit</button>
+                                <button onClick={() => { delitRow(row) }} className=' hover:bg-red-600 border bg-red-500 mr-2 text-white px-2'>Delete</button>
+                            </div>
+                        </TableCell>
                     </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row,index) => (
-                        <TableRow key={index}>  
-                            <TableCell align="right"><img className='w-10 h-10' src={pizza} alt="Image"></img></TableCell>
-                            <TableCell component="th" scope="row">
-                               <div className='text-red-500 font-bold'>{row.name}</div> 
-                            </TableCell>
-                            <TableCell align="right">${row.price}</TableCell>
-                            <TableCell align="right">
-                                <div className='lg:flex'>
-                                    <button onClick={()=>{EditRow(row)}} className=' hover:bg-sky-600 border bg-sky-500 mr-2 text-white mb-2 lg:mb-0 lg:px-2 px-4'>Edit</button>
-                                    <button onClick={()=>{delitRow(row)}} className=' hover:bg-red-600 border bg-red-500 mr-2 text-white px-2'>Delete</button>
-                                </div>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>)
+                ))}
+            </TableBody>
+        </Table>
+    </TableContainer>)
 }
 export default ProductTable
