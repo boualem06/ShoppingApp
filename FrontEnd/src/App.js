@@ -123,7 +123,7 @@ function App() {
     //   </Routes>
     // </Router>
 
-    <NewProduct></NewProduct>
+    <Test2></Test2>
 
 
   )

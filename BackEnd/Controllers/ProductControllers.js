@@ -32,17 +32,18 @@ const uploadImage = async (req, res) => {
 
 const uploadProduct = async (req, res) => {
     try {
+        console.log(req.body)
         // /save the image of the product to cloudinary
-        const fileStr = req.body.data;
+        const fileStr = req.body.imageUrl;
         const uploadResponse = await cloudinary.uploader.upload(fileStr, {
             upload_preset: 'xeww3a1m',
         });
 
         //save the product with the public_id of the image saved to cloudinary to mongo db 
         const saveProduct = new Product({
-            name: "product3",
-            price: 25,
-            description: "the description of the product three ",
+            name: req.body.name,
+            price: req.body.price,
+            description: req.body.description,
             imageUrl: uploadResponse.public_id
         })
         saveProduct.save().then((result) => {
