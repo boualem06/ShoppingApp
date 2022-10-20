@@ -10,6 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import pizza from '../img/pizza.png'
 import { useState } from 'react';
 import { Image } from 'cloudinary-react';
+import { useDispatch } from "react-redux";
+import { setEditElement,setEdit } from '../features/EditElement';
 const useStyles = makeStyles({
     table: {
         minWidth: 100,
@@ -19,41 +21,7 @@ const useStyles = makeStyles({
 
 
 const ProductTable = () => {
-    // const [rows,setRows] = useState([
-    //     {
-    //         name: "Campagnoia",
-    //         extras: "Spicy Sauce, Garlic Sauce",
-    //         quantity: 2,
-    //         price: "19.90",
-
-    //     },
-    //     {
-    //         name: "Neapolitan",
-    //         extras: "Spicy Sauce, Garlic Sauce",
-    //         quantity: 2,
-    //         price: "22.90",
-    //     },
-    //     {
-    //         name: "Neapolitan",
-    //         extras: "Spicy Sauce, Garlic Sauce",
-    //         quantity: 2,
-    //         price: "22.90",
-    //     },
-    //     {
-    //         name: "Neapolitan",
-    //         extras: "Spicy Sauce, Garlic Sauce",
-    //         quantity: 2,
-    //         price: "22.90",
-    //     },
-    //     {
-    //         name: "Neapolitan",
-    //         extras: "Spicy Sauce, Garlic Sauce",
-    //         quantity: 2,
-    //         price: "22.90",
-    //     },
-
-    // ]);
-
+   
     const [rows, setRows] = useState([]);
     const loadImages = async () => {
         try {
@@ -69,10 +37,17 @@ const ProductTable = () => {
         loadImages();
     }, []);
 
+    useEffect(()=>{
+
+    },[rows])
+
     const classes = useStyles();
     const EditRow = (row) => {
-
+        console.log(row) ;
     }
+
+    const dispatch = useDispatch();
+
 
     const delitRow = (row) => {
         let vars = rows.filter((ele) => { return ele !== row });
@@ -84,17 +59,18 @@ const ProductTable = () => {
                 <TableRow className=''>
                     <TableCell ><div className='font-bold text-lg'>Product</div></TableCell>
                     <TableCell><div className='font-bold text-lg'>Name</div></TableCell>                        <TableCell align="right"><div className='font-bold text-lg'>Price</div></TableCell>
-                    <TableCell align="right"><div className='font-bold text-lg'>Action</div></TableCell>
+                    <TableCell align="right"></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
                 {rows.map((row, index) => (
                     <TableRow key={index}>
-                        <TableCell align="right"><Image
+                        <TableCell align="right">
+                            <Image
 
                             cloudName={"dc7suzbrg"}
                             publicId={row.imageUrl}
-                            className="w-10 h-10"
+                            className="w-20 rounded-md h-20"
                             crop="scale"
                         /></TableCell>
 
@@ -103,9 +79,9 @@ const ProductTable = () => {
                         </TableCell>
                         <TableCell align="right">${row.price}</TableCell>
                         <TableCell align="right">
-                            <div className='lg:flex'>
-                                <button onClick={() => { EditRow(row) }} className=' hover:bg-sky-600 border bg-sky-500 mr-2 text-white mb-2 lg:mb-0 lg:px-2 px-4'>Edit</button>
-                                <button onClick={() => { delitRow(row) }} className=' hover:bg-red-600 border bg-red-500 mr-2 text-white px-2'>Delete</button>
+                            <div className='lg:flex lg:justify-center lg:items-center'>
+                                <button onClick={() => { dispatch(setEditElement(row));dispatch(setEdit(true)) }} className='py-1  hover:bg-sky-600 border bg-sky-500 mr-2 rounded-md text-white mb-2 lg:mb-0 lg:px-2 px-4'>Edit</button>
+                                <button onClick={() => { delitRow(row) }} className='py-1 hover:bg-red-600 border bg-red-500 mr-2 rounded-md text-white px-2'>Delete</button>
                             </div>
                         </TableCell>
                     </TableRow>

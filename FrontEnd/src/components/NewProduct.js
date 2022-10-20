@@ -18,9 +18,7 @@ const NewProduct = ({ add, setAdd }) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      console.log(reader.result);
       setProduct({ ...Product, imageUrl: reader.result });
-      console.log(Product)
       setPreviewSource(reader.result);
     };
   };
@@ -33,10 +31,11 @@ const NewProduct = ({ add, setAdd }) => {
     reader.onloadend = () => {
       setProduct({ ...Product, imageUrl: reader.result });
       uploadImage();
-      // uploadImage(reader.result);
+      
+      
     };
     reader.onerror = () => {
-      console.error("AHHHHHHHH!!");
+    
       setErrMsg("something went wrong!");
     };
   };
@@ -50,7 +49,8 @@ const NewProduct = ({ add, setAdd }) => {
         headers: { "Content-Type": "application/json" },
       }).then((res) => {
         setLoading(false);
-        console.log(res);
+        window.location.reload() ;
+        
       });
       setAdd(false);
       setFileInputState("");
@@ -69,7 +69,7 @@ const NewProduct = ({ add, setAdd }) => {
       
       className=" m-2 border-2  border-orange-600 rounded-md px-4 py-2"
     >
-      <div className="w-full flex justify-end items-center"><button onClick={()=>{setAdd(false)}} className="px-2 font-bold text-xl  text-white bg-orange-600  rounded-full ">  X </button></div>
+      <div className="w-full flex justify-end items-center"><button onClick={()=>{setAdd(false)}} className="px-2 font-bold text-xl  text-white bg-orange-600 hover:bg-orange-700  rounded-full ">  X </button></div>
       <form onSubmit={handleSubmitFile}>
 
 
@@ -131,7 +131,7 @@ const NewProduct = ({ add, setAdd }) => {
         <div className="w-full mt-4 flex justify-center items-center">
           <button
             type="submit"
-            className="bg-orange-600 text-white shadow-md px-10 py-2 rounded-md"
+            className="bg-orange-600 hover:bg-orange-700 hover:font-bold text-white shadow-md px-10 py-2 rounded-md"
           >
             {loading ? <div>Submiting ...</div> : <div>Submit </div>}
           </button>
