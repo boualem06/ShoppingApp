@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-const NewProduct = () => {
+const NewProduct = ({ add, setAdd }) => {
   const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
   const [selectedFile, setSelectedFile] = useState();
   const [successMsg, setSuccessMsg] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [Product,setProduct]=useState({}) ;
-  const [loading,setLoading]=useState(false) ;
+  const [Product, setProduct] = useState({});
+  const [loading, setLoading] = useState(false);
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     previewFile(file);
@@ -19,7 +19,7 @@ const NewProduct = () => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       console.log(reader.result);
-      setProduct({...Product,imageUrl:reader.result});
+      setProduct({ ...Product, imageUrl: reader.result });
       console.log(Product)
       setPreviewSource(reader.result);
     };
@@ -31,7 +31,7 @@ const NewProduct = () => {
     const reader = new FileReader();
     reader.readAsDataURL(selectedFile);
     reader.onloadend = () => {
-      setProduct({...Product,imageUrl:reader.result});
+      setProduct({ ...Product, imageUrl: reader.result });
       uploadImage();
       // uploadImage(reader.result);
     };
@@ -48,11 +48,11 @@ const NewProduct = () => {
         method: "POST",
         body: JSON.stringify(Product),
         headers: { "Content-Type": "application/json" },
-      }).then((res)=>{
-        setLoading(false) ;
-        console.log(res) ;
+      }).then((res) => {
+        setLoading(false);
+        console.log(res);
       });
-      
+      setAdd(false);
       setFileInputState("");
       setPreviewSource("");
       setSuccessMsg("Image uploaded successfully");
@@ -62,13 +62,14 @@ const NewProduct = () => {
     }
   };
 
-  
+
 
   return (
     <div
-      style={{ "box-shadow": "1px 1px 15px #F43911" }}
-      className=" m-2  border-orange-600 rounded-md px-4 py-2"
+      
+      className=" m-2 border-2  border-orange-600 rounded-md px-4 py-2"
     >
+      <div className="w-full flex justify-end items-center"><button onClick={()=>{setAdd(false)}} className="px-2 font-bold text-xl  text-white bg-orange-600  rounded-full ">  X </button></div>
       <form onSubmit={handleSubmitFile}>
 
 
@@ -77,7 +78,7 @@ const NewProduct = () => {
             <div className="font-bold">Name of the Product </div>
             <input
               name="name"
-              onChange={(e)=>{ setProduct({...Product,name:e.target.value});}}
+              onChange={(e) => { setProduct({ ...Product, name: e.target.value }); }}
               className="w-full border px-2 py-1 rounded-md border-orange-600"
               placeholder="Product Name"
             ></input>
@@ -86,7 +87,7 @@ const NewProduct = () => {
           <div>
             <div className="font-bold">Price of the Product </div>
             <input
-               onChange={(e)=>{ setProduct({...Product, price:parseInt(e.target.value)});}}
+              onChange={(e) => { setProduct({ ...Product, price: parseInt(e.target.value) }); }}
               className="w-full border px-2 py-1 rounded-md border-orange-600"
               placeholder="Product Price $"
             ></input>
@@ -95,7 +96,7 @@ const NewProduct = () => {
           <div className="w-full">
             <div className="font-bold">description of the Product </div>
             <textarea
-            onChange={(e)=>{ setProduct({...Product,description:e.target.value});}}
+              onChange={(e) => { setProduct({ ...Product, description: e.target.value }); }}
               rows="2"
               className="w-full border px-2 py-2 rounded-md border-orange-600"
               placeholder="Product description "
@@ -132,7 +133,7 @@ const NewProduct = () => {
             type="submit"
             className="bg-orange-600 text-white shadow-md px-10 py-2 rounded-md"
           >
-           {loading ? <div>Submiting ...</div> :<div>Submit </div> } 
+            {loading ? <div>Submiting ...</div> : <div>Submit </div>}
           </button>
         </div>
 
