@@ -26,7 +26,7 @@ export default function Cart({ cart, setCart }) {
         console.log(row) ;
         //  setCart(cart.map((ele)=>(ele!==row))) ;
         setCart(cart.filter((ele)=>{return ele!==row})) ;
-        // console.log(tes) ;
+        
     }
 
     return (

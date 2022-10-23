@@ -11,16 +11,26 @@ const EditProduct = ({ add, setAdd }) => {
     const [errMsg, setErrMsg] = useState("");
     const [Product, setProduct] = useState({});
     const [loading, setLoading] = useState(false);
+    const EditElement = useSelector((state) => state.EditElement.value);
 
     
-    const submitForm=(req,res)=>{
-        console.log("form is submitted") ;
+    const submitForm=async()=>{
+        let response = await fetch("http://localhost:5000/EditProduct", {
+            method: "POST",
+            body:JSON.stringify({
+                name:Product.name,
+                price:parseInt(Product.price),
+                description:Product.description,
+                id:EditElement._id
+                
+            }),
+            headers: { "Content-Type": "application/json" },
+        });
     }
    
 
 
     const dispatch = useDispatch();
-    const EditElement = useSelector((state) => state.EditElement.value);
     useEffect(() => {
         setProduct(EditElement);
     }, [EditElement])
@@ -50,7 +60,7 @@ const EditProduct = ({ add, setAdd }) => {
                         <div className="font-bold">Price of the Product </div>
                         <input
                             value={Product.price}
-                            onChange={(e) => { setProduct({ ...Product, price: parseInt(e.target.value) }); }}
+                            onChange={(e) => { setProduct({ ...Product, price: e.target.value }); }}
                             className="w-full border px-2 py-1 rounded-md border-orange-600"
                             placeholder="Product Price $"
                         ></input>

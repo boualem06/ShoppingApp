@@ -10,6 +10,7 @@
 
 
 import React from 'react';
+import { Image } from 'cloudinary-react';
 
 import pizza from '../img/pizza.png'
 import { useState } from 'react';
@@ -19,6 +20,8 @@ import { Navigate } from 'react-router-dom';
 
 
 export default function Item({cart,setCart,element,setElement}) {
+
+
    
     const [PizzaList, setPizzaList] = useState([
         {
@@ -94,6 +97,20 @@ export default function Item({cart,setCart,element,setElement}) {
     ])
     const [isClicked,setIsClicked]=useState(false)
    
+    useEffect(()=>{
+        const loadProducts=async ()=>{
+            try {
+                const res = await fetch('http://localhost:5000/getProducts');
+                const data = await res.json();
+                console.log(data);
+                setPizzaList(data);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        loadProducts() ;
+        
+    },[])
     
 
     return (
@@ -104,7 +121,14 @@ export default function Item({cart,setCart,element,setElement}) {
              <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-3 ' >
             {PizzaList.map((elem,index) => (
                 <div key={index}  className='shadow rounded-lg     flex flex-col justify-center items-center  py-1 border-2 '>
-                    <img className='max-w-40 max-h-36 ' src={pizza} alt="Pizza image"></img>
+                    {/* <img className='max-w-40 max-h-36 ' src={pizza} alt="Pizza image"></img> */}
+                    <Image
+                           key={index}
+                           cloudName={"dc7suzbrg"}
+                           publicId={elem.imageUrl}
+                           width="300"
+                           crop="scale"
+                       /> 
                     <div className=' flex flex-col justify-center items-center'>
                         <h1 className='text-lg font-bold text-red-500'>{elem.name}</h1>
                         <h1 className='font-bold'>${elem.price}</h1>

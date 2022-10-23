@@ -1,7 +1,8 @@
 const express = require('express')
 const { default: mongoose } = require('mongoose')
 const UserRoutes = require("./routes/UserRoutes") ;
-const ProductRoutes=require("./routes/ProductRoutes")
+const ProductRoutes=require("./routes/ProductRoutes") ;
+const CartRoutes=require('./routes/CartRoutes')
 const app = express()
 const cors = require("cors");
 require("dotenv").config();
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.static('public'));
 app.use(UserRoutes);
 app.use(ProductRoutes) ;
+app.use(CartRoutes) ;
 
 
  

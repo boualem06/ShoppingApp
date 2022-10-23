@@ -57,10 +57,23 @@ const uploadProduct = async (req, res) => {
 }
 
 
-const getProduct=async(req,res)=>{
-    Product.find().then((data)=>{
-        console.log(data) ;
-        res.json(data) ;
+const getProduct = async (req, res) => {
+    Product.find().then((data) => {
+        console.log(data);
+        res.json(data);
+    })
+}
+
+const deleteProduct = (req, res) => {
+    Product.findByIdAndDelete(req.body.id).then((result) => {
+        res.json(result);
+    })
+}
+
+const EditProduct = (req, res) => {
+    Product.updateOne({_id:req.body.id},{$set: {name:req.body.name,description:req.body.description,price:req.body.price}},(err,result)=>{
+        if(err) return console.log(err)
+        res.json(result) ;
     })
 }
 
@@ -68,7 +81,9 @@ module.exports = {
     uploadImage,
     getImages,
     uploadProduct,
-    getProduct
+    getProduct,
+    deleteProduct,
+    EditProduct
 }
 
 

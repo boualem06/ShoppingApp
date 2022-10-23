@@ -11,7 +11,7 @@ import pizza from '../img/pizza.png'
 import { useState } from 'react';
 import { Image } from 'cloudinary-react';
 import { useDispatch } from "react-redux";
-import { setEditElement,setEdit } from '../features/EditElement';
+import { setEditElement, setEdit } from '../features/EditElement';
 const useStyles = makeStyles({
     table: {
         minWidth: 100,
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 
 
 const ProductTable = () => {
-   
+
     const [rows, setRows] = useState([]);
     const loadImages = async () => {
         try {
@@ -37,22 +37,39 @@ const ProductTable = () => {
         loadImages();
     }, []);
 
-    useEffect(()=>{
 
-    },[rows])
 
     const classes = useStyles();
     const EditRow = (row) => {
-        console.log(row) ;
+        console.log(row);
+    }
+
+    const deleteRow = async (id) => {
+        console.log(id)
+       
+        let vars = rows.filter((ele) => { return ele._id !== id });
+        setRows(vars) ;
+        let response = await fetch("http://localhost:5000/deleteProduct", {
+            method: "DELETE",
+            body:JSON.stringify({
+                id: id
+            }),
+            headers: { "Content-Type": "application/json" },
+        });
+
+        let data = await response.text();
+        console.log(data);
+
+
     }
 
     const dispatch = useDispatch();
 
 
-    const delitRow = (row) => {
-        let vars = rows.filter((ele) => { return ele !== row });
-        setRows(vars);
-    }
+    // const delitRow = (row) => {
+    //     let vars = rows.filter((ele) => { return ele !== row });
+    //     setRows(vars);
+    // }
     return (<TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
             <TableHead>
@@ -68,11 +85,11 @@ const ProductTable = () => {
                         <TableCell align="right">
                             <Image
 
-                            cloudName={"dc7suzbrg"}
-                            publicId={row.imageUrl}
-                            className="w-20 rounded-md h-20"
-                            crop="scale"
-                        /></TableCell>
+                                cloudName={"dc7suzbrg"}
+                                publicId={row.imageUrl}
+                                className="w-20 rounded-md h-20"
+                                crop="scale"
+                            /></TableCell>
 
                         <TableCell component="th" scope="row">
                             <div className='text-red-500 font-bold'>{row.name}</div>
@@ -80,8 +97,8 @@ const ProductTable = () => {
                         <TableCell align="right">${row.price}</TableCell>
                         <TableCell align="right">
                             <div className='lg:flex lg:justify-center lg:items-center'>
-                                <button onClick={() => { dispatch(setEditElement(row));dispatch(setEdit(true)) }} className='py-1  hover:bg-sky-600 border bg-sky-500 mr-2 rounded-md text-white mb-2 lg:mb-0 lg:px-2 px-4'>Edit</button>
-                                <button onClick={() => { delitRow(row) }} className='py-1 hover:bg-red-600 border bg-red-500 mr-2 rounded-md text-white px-2'>Delete</button>
+                                <button onClick={() => { dispatch(setEditElement(row)); dispatch(setEdit(true)) }} className='py-1  hover:bg-sky-600 border bg-sky-500 mr-2 rounded-md text-white mb-2 lg:mb-0 lg:px-2 px-4'>Edit</button>
+                                <button onClick={() => { deleteRow(row._id) }} className='py-1 hover:bg-red-600 border bg-red-500 mr-2 rounded-md text-white px-2'>Delete</button>
                             </div>
                         </TableCell>
                     </TableRow>
