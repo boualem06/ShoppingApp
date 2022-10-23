@@ -31,8 +31,6 @@ const NewProduct = ({ add, setAdd }) => {
     reader.onloadend = () => {
       setProduct({ ...Product, imageUrl: reader.result });
       uploadImage();
-      
-      
     };
     reader.onerror = () => {
     

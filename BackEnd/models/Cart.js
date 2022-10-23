@@ -5,23 +5,9 @@ const CartSchema=new Schema({
         type:String,
         required:[true,'please add a userId']
     },
-    elements:{
+    userProducts:{
         type:Array
     }
-        
-
-    // price:{
-    //     type:Number,
-    //     required:[true,'please add a price']
-    // },
-    // description:{
-    //     type:String,
-    //     required:[true,'please add a description']
-    // },
-    // imageUrl:{
-    //     type:String,
-    //     required:[true,'please add a url of the image']
-    // }
     
 },{timestamps:true})
 
