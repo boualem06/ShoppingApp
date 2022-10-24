@@ -40,9 +40,7 @@ const ProductTable = () => {
 
 
     const classes = useStyles();
-    const EditRow = (row) => {
-        console.log(row);
-    }
+    
 
     const deleteRow = async (id) => {
         console.log(id)

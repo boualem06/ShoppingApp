@@ -28,8 +28,7 @@ const EditProduct = ({ add, setAdd }) => {
         });
     }
    
-
-
+    
     const dispatch = useDispatch();
     useEffect(() => {
         setProduct(EditElement);

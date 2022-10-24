@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -22,11 +22,54 @@ const useStyles = makeStyles({
 export default function Cart({ cart, setCart }) {
     const classes = useStyles();
     const [test,setTest]=useState([]); 
+    const [currentUser,setCurrentUser]=useState({}) ;
     const delet=(row)=>{
+
         console.log(row) ;
         //  setCart(cart.map((ele)=>(ele!==row))) ;
-        setCart(cart.filter((ele)=>{return ele!==row})) ;
+        setCart(cart.filter((ele)=>{return ele!==row})) ;        
         
+    }
+
+    const getMe=async()=>{
+        let headersList = {
+            "Accept": "*/*",
+            "accestoken": localStorage.getItem('jwt'),
+            "Content-Type": "application/json"
+           }
+           
+
+           
+           let response = await fetch("http://localhost:5000/me", { 
+             method: "GET",
+             headers: headersList
+           });
+           let data = await response.json();
+           console.log(data);
+    }
+
+
+
+    useEffect(()=>{   
+        getMe() ;      
+    },[])
+
+    const saveProduct=async()=>{
+        let headersList = {
+            "Accept": "*/*",
+            "Content-Type": "application/json"
+           }
+                      
+           let response = await fetch("http://localhost:5000/addToCart", { 
+             method: "POST",
+             body:{
+                id:currentUser.id,
+                userProducts:cart
+             },
+             headers: headersList
+           });
+           let data = await response.json();
+           console.log(data);
     }
 
     return (
@@ -47,8 +90,8 @@ export default function Cart({ cart, setCart }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {cart.map((row) => (
-                            <TableRow key={row.name}>
+                        {cart.map((row,index) => (
+                            <TableRow key={index}>
                                 <TableCell align="right"><img className='w-20 h-20' src={pizza} alt="Image"></img></TableCell>
                                 <TableCell component="th" scope="row">
                                     <div className='text-red-500 font-bold'>{row.name}</div>
@@ -63,6 +106,9 @@ export default function Cart({ cart, setCart }) {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <div className='w-full flex justify-center items-center mt-4 '>
+            <button className='hover:font-bold px-4 py-2 hover:shadow-md bg-orange-600 text-white rounded-md ' onClick={()=>{saveProduct()}}> save changes </button>
+            </div>
             <div style={{
                 position: "static",
                 bottom: "0%",
