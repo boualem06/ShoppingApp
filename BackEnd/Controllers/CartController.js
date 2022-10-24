@@ -3,7 +3,7 @@ const userControllers = require('./userControllers')
 
 
 const getCart = async (req, res) => {
-    Cart.find({ userId: req.body.id }).then((data) => {
+    Cart.find({ userId: req.params.userId }).then((data) => {
         res.send(data);
     })
 }

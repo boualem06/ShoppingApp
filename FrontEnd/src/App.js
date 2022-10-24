@@ -18,76 +18,58 @@ import PrivateRoutes from "./components/PrivateRoutes";
 import Main from "./components/Main";
 import Test from "./components/Main";
 import List from "./components/List";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Test2 from "./components/Test";
 import NewProduct from "./components/NewProduct";
+import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
 function App() {
     let hello ;
     // const [Cart,setCart]=useState(true) ;
     const [element,setElement]=useState({}) ;
-    const [cart,setCart]=useState([
-      
-        {
-          name: "Campagnoia",
-          extras: "Spicy Sauce, Garlic Sauce",
-          quantity: 2,
-          price: "19.90",
-  
-      },
-      {
-          name: "Neapolitan",
-          extras: "Spicy Sauce, Garlic Sauce",
-          quantity: 2,
-          price: "22.90",
-      },
-      {
-          name: "Campagnoia",
-          extras: "Spicy Sauce, Garlic Sauce",
-          quantity: 2,
-          price: "19.90",
-  
-      },
-      {
-        name: "Campagnoia",
-        extras: "Spicy Sauce, Garlic Sauce",
-        quantity: 2,
-        price: "19.90",
+    const [cart,setCart]=useState([]) ;
+    const [currentUser,setCurrentUser]=useState({}) ;
 
-    },
-    {
-        name: "Neapolitan",
-        extras: "Spicy Sauce, Garlic Sauce",
-        quantity: 2,
-        price: "22.90",
-    },
-    {
-        name: "Campagnoia",
-        extras: "Spicy Sauce, Garlic Sauce",
-        quantity: 2,
-        price: "19.90",
+    const getMe=async()=>{
+      let headersList = {
+          "Accept": "*/*",
+          "accestoken": localStorage.getItem('jwt'),
+          "Content-Type": "application/json"
+         }
+         
+         let response = await fetch("http://localhost:5000/me", { 
+           method: "GET",
+           headers: headersList
+         });
+         let data = await response.json();
+         setCurrentUser(data)
+         console.log(data)
+  }
 
-    },
-    {
-      name: "Campagnoia",
-      extras: "Spicy Sauce, Garlic Sauce",
-      quantity: 2,
-      price: "19.90",
+  const getCart=async()=>{
+    
+    let headersList = {
+          "Accept": "*/*",
+          "Content-Type": "application/json"
+         }
+         
+        
+         let response = await fetch(`http://localhost:5000/getCart/${currentUser.id}`, { 
+           method: "GET",
+           headers: headersList
+         });
+         
+         let data = await response.json();
+         setCart((data[0]).userProducts) ;
+         
+  }
 
-  },
-  {
-      name: "Neapolitan",
-      extras: "Spicy Sauce, Garlic Sauce",
-      quantity: 2,
-      price: "22.90",
-  },
-  {
-      name: "Campagnoia",
-      extras: "Spicy Sauce, Garlic Sauce",
-      quantity: 2,
-      price: "19.90",
+  useEffect(()=>{
+    getMe() ;
+  },[])
 
-  },
-    ]) ;
+  useEffect(()=>{
+    getCart() ;
+  },[currentUser])
 
     const [size, setSize] = useState("Small")
     const getSize = (e) => {

@@ -10,6 +10,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { Navigate } from "react-router-dom"
 import Select from '@material-ui/core/Select';
+import { Image } from 'cloudinary-react';
+
 import Footer from './Footer';
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -21,38 +23,48 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 120,
     },
 }));
-const Detail = ({ element , size ,setSize ,number,setNumber,additional ,setAddittional,cart,setCart }) => {
+const Detail = ({ element, size, setSize, number, setNumber, additional, setAddittional, cart, setCart }) => {
     const classes = useStyles();
-    const [done,setDone]=useState(false) ;
+    const [done, setDone] = useState(false);
     // const [size, setSize] = useState("Small")
     const getSize = (e) => {
         setSize(e.target.textContent)
     }
 
-    const AddToCart=()=>{
-        let add="" ;
-        if(additional.Double_ingredients) {add=add.concat("Double Ingredients  ")}
-        if(additional.Extra_cheese) {add=add.concat("  Extra Cheese  ") } ;
-        if(additional.spicy_sauce) {add=add.concat("  Spicy Sauce  ")} ;
-        if(additional.garlic_sauce) {add=add.concat("  Garlic Sauce  ")}  ;
-        let ccart={
+    const AddToCart = () => {
+        let add = "";
+        if (additional.Double_ingredients) { add = add.concat("Double Ingredients  ") }
+        if (additional.Extra_cheese) { add = add.concat("  Extra Cheese  ") };
+        if (additional.spicy_sauce) { add = add.concat("  Spicy Sauce  ") };
+        if (additional.garlic_sauce) { add = add.concat("  Garlic Sauce  ") };
+        let ccart = {
             name: element.name,
             extras: add,
             quantity: number,
             price: element.price,
+            imageUrl:element.imageUrl
         }
-        setCart([...cart,ccart]) ;
-        setDone(true) ;
+        setCart([...cart, ccart]);
+        setDone(true);
     }
 
 
     return (
-        <div style={{height:"100%"}} className='h-full'>
+        <div style={{ height: "100%" }} className='h-full'>
 
             <NavbarResp></NavbarResp>
             <div className="grid gap-2 md:gap-20 grid-cols-1 md:grid-cols-2 py-2 px-4 lg:px-16 md:px-6 flex flex-col items-center justify-center">
                 <div className='   flex items-center justify-center mt-16'>
-                    <img src={pizza} alt="picture"></img>
+                    {/* <img src={pizza} alt="picture"></img> */}
+                    <Image
+
+                        cloudName={"dc7suzbrg"}
+                        publicId={element.imageUrl}
+                        width="400"
+                        height="400"
+                        className="rounded-lg"
+                        crop="scale"
+                    />
                 </div>
                 <div className='mt-16 text-center md:text-left'>
                     <h1 className='text-2xl font-bold mb-6 lg:mb-10 '>{element.name}</h1>
@@ -109,7 +121,7 @@ const Detail = ({ element , size ,setSize ,number,setNumber,additional ,setAddit
                     </div>
                     < div className='flex justify-center items-center md:'>
                         <div>
-                            <select onChange={(e) => {setNumber(parseInt(e.target.value))}} name="number" id="number" className='mr-4  border rounded px-2 py-1'>
+                            <select onChange={(e) => { setNumber(parseInt(e.target.value)) }} name="number" id="number" className='mr-4  border rounded px-2 py-1'>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -121,7 +133,7 @@ const Detail = ({ element , size ,setSize ,number,setNumber,additional ,setAddit
                                 <option value="9">9</option>
                                 <option value="10">10</option>
                             </select>
-                            <button onClick={()=>{AddToCart()}}  className='hover-shadow px-2 border rounded-lg border-orange-500 bg-gradient-to-r from-orange-600   to-orange-700 text-white py-2'>Add to cart</button>
+                            <button onClick={() => { AddToCart() }} className='hover-shadow px-2 border rounded-lg border-orange-500 bg-gradient-to-r from-orange-600   to-orange-700 text-white py-2'>Add to cart</button>
                         </div>
                     </div>
                 </div>
@@ -132,13 +144,13 @@ const Detail = ({ element , size ,setSize ,number,setNumber,additional ,setAddit
                 position: "static",
                 bottom: "0%",
                 width: "100%",
-               
+
             }} className='position relative bottom-0 top-100'>
                 <Footer></Footer>
             </div>
 
 
-            
+
 
         </div >
     )

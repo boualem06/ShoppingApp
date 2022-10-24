@@ -3,7 +3,7 @@ const Schema=mongoose.Schema  ;
 const CartSchema=new Schema({
     userId:{
         type:String,
-        required:[true,'please add a userId']
+        required:[true,'please add a userId'] 
     },
     userProducts:{
         type:Array
