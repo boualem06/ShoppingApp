@@ -22,8 +22,10 @@ const useStyles = makeStyles({
 
 export default function Cart({ cart, setCart }) {
     const classes = useStyles();
-    const [test, setTest] = useState([]);
     const [currentUser, setCurrentUser] = useState({});
+    const [isLoading,setIsLoading]=useState(true) ;
+    // const [firstime,setfirstime]=useState(true) ;
+    
     const delet = (row) => {
         let temp=cart.filter((ele) => { return ele.imageUrl !== row.imageUrl })
         setCart(temp);
@@ -43,11 +45,13 @@ export default function Cart({ cart, setCart }) {
             headers: headersList
         });
         let data = await response.json();
+        console.log(data) ;
+        setIsLoading(false)
         setCurrentUser(data)
     }
 
     useEffect(() => {
-        getMe();
+         getMe();
     }, [])
 
     const saveProduct = async () => {
@@ -113,7 +117,7 @@ export default function Cart({ cart, setCart }) {
                 </Table>
             </TableContainer>
             <div className='w-full flex justify-center items-center mt-4 '>
-                <button className='hover:font-bold px-4 py-2 hover:shadow-md bg-orange-600 text-white rounded-md ' onClick={() => { saveProduct() }}> save changes </button>
+             {!isLoading && <button className='hover:font-bold px-4 py-2 hover:shadow-md bg-orange-600 text-white rounded-md ' onClick={() => { saveProduct() }}> save changes </button> }   
             </div>
             <div style={{
                 position: "static",

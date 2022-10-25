@@ -28,7 +28,6 @@ function App() {
     const [element,setElement]=useState({}) ;
     const [cart,setCart]=useState([]) ;
     const [currentUser,setCurrentUser]=useState({}) ;
-
     const getMe=async()=>{
       let headersList = {
           "Accept": "*/*",
@@ -42,7 +41,8 @@ function App() {
          });
          let data = await response.json();
          setCurrentUser(data)
-         console.log(data)
+     
+        //  getCart() ;
   }
 
   const getCart=async()=>{
@@ -52,7 +52,6 @@ function App() {
           "Content-Type": "application/json"
          }
          
-        
          let response = await fetch(`http://localhost:5000/getCart/${currentUser.id}`, { 
            method: "GET",
            headers: headersList
@@ -60,7 +59,6 @@ function App() {
          
          let data = await response.json();
          setCart((data[0]).userProducts) ;
-         
   }
 
   useEffect(()=>{
@@ -70,7 +68,7 @@ function App() {
   useEffect(()=>{
     getCart() ;
   },[currentUser])
-
+  
     const [size, setSize] = useState("Small")
     const getSize = (e) => {
         setSize(e.target.textContent)
@@ -82,14 +80,7 @@ function App() {
         spicy_sauce: false,
         garlic_sauce: false
     });
-
-
     const [number,setNumber]=useState(1) ;
-
-
-
-    // console.log(cart.length)
-    // console.log(element)
   return (
     <Router>
       <Routes>
@@ -104,10 +95,6 @@ function App() {
         <Route path={'/SignUp'} element={<SignUp />}></Route>
       </Routes>
     </Router>
-
-    // <Test2></Test2>
-
-
   )
 }
 

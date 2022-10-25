@@ -193,7 +193,7 @@ export default function PersistentDrawerLeft() {
                     </Link>
                     }
                     {localStorage.getItem('jwt') &&
-                        <button onClick={() => { localStorage.removeItem('jwt') }}>
+                        <button onClick={() => { localStorage.removeItem('jwt') ;window.location.reload()}}>
                             <Link to={"/"}>
                                 <ListItem button >
                                     {/* <button> */}
