@@ -22,6 +22,7 @@ import { useEffect, useState } from "react";
 import Test2 from "./components/Test";
 import NewProduct from "./components/NewProduct";
 import { LocalConvenienceStoreOutlined } from "@material-ui/icons";
+import ResponsiveDialog from "./components/DialogCart";
 function App() {
     let hello ;
     // const [Cart,setCart]=useState(true) ;
@@ -95,6 +96,8 @@ function App() {
         <Route path={'/SignUp'} element={<SignUp />}></Route>
       </Routes>
     </Router>
+
+    // <ResponsiveDialog/>
   )
 }
 

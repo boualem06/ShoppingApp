@@ -24,8 +24,7 @@ export default function Cart({ cart, setCart }) {
     const classes = useStyles();
     const [currentUser, setCurrentUser] = useState({});
     const [isLoading,setIsLoading]=useState(true) ;
-    // const [firstime,setfirstime]=useState(true) ;
-    
+
     const delet = (row) => {
         let temp=cart.filter((ele) => { return ele.imageUrl !== row.imageUrl })
         setCart(temp);
@@ -54,16 +53,32 @@ export default function Cart({ cart, setCart }) {
          getMe();
     }, [])
 
+
+    // const calculateTotal=()=>{
+    //     let Total=0 ;
+    //      for (let  i=0;i<cart.length;i++){
+    //         Total=Total + ((cart[i]).price)*(cart[i]).quantity
+    //      }
+    //      console.log(Total) ;
+    // }
+
     const saveProduct = async () => {
-        // console.log(cart) ;
         let headersList = {
             "Accept": "*/*",
             "Content-Type": "application/json"
         }
 
+        let Total=0 ;
+          for (let  i=0;i<cart.length;i++){
+            Total=Total + ((cart[i]).price)*(cart[i]).quantity
+         }
+
+
         let response = await fetch("http://localhost:5000/addToCart", {
             method: "POST",
             body: JSON.stringify({
+                name:currentUser.name,
+                total:Total,
                 id: currentUser.id,
                 userProducts: cart
             }),
@@ -73,6 +88,7 @@ export default function Cart({ cart, setCart }) {
         console.log("data is saved")
         console.log(data);
     }
+
 
     return (
         <div style={{ height: "100vh" }} className="h-full">
@@ -117,7 +133,7 @@ export default function Cart({ cart, setCart }) {
                 </Table>
             </TableContainer>
             <div className='w-full flex justify-center items-center mt-4 '>
-             {!isLoading && <button className='hover:font-bold px-4 py-2 hover:shadow-md bg-orange-600 text-white rounded-md ' onClick={() => { saveProduct() }}> save changes </button> }   
+             {!isLoading && <button className='hover:font-bold px-4 py-2 hover:shadow-md bg-orange-600 text-white rounded-md ' onClick={() => { saveProduct()}}> save changes </button> }   
             </div>
             <div style={{
                 position: "static",
@@ -127,7 +143,6 @@ export default function Cart({ cart, setCart }) {
             }} className='position relative bottom-0 top-100'>
                 <Footer></Footer>
             </div>
-
         </div>
     );
 }

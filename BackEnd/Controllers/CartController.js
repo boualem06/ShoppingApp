@@ -27,6 +27,8 @@ const addToCart = async (req, res) => {
     }
     else {
         const cart = new Cart({
+            total:req.body.total,
+            userName:req.body.name,
             userId: req.body.id,
             userProducts: req.body.userProducts
         });
@@ -34,12 +36,19 @@ const addToCart = async (req, res) => {
             res.json(result);
         })
     }
-    
+}
+
+const getAllCarts=(req,res)=>{
+    Cart.find().then((result)=>{
+        console.log(result)
+        res.json(result)
+    })
 }
 
 
 
 module.exports = {
     getCart,
-    addToCart
+    addToCart,
+    getAllCarts
 }
