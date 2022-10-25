@@ -93,7 +93,7 @@ const OrdersTable = () => {
                     orders.map((row, index) => (
                         <TableRow key={index}>
                             <TableCell component="th" scope="row">
-                                <div className='text-red-500 font-bold'>{row.name}</div>
+                                <div className='text-red-500 font-bold'>{row.userName}</div>
                             </TableCell>
                             <TableCell align="right">${row.total}</TableCell>
                             <TableCell align="right">{row.status}</TableCell>
@@ -105,19 +105,7 @@ const OrdersTable = () => {
                     ))
 
                 }
-                {rows.map((row, index) => (
-                    <TableRow key={index}>
-                        <TableCell component="th" scope="row">
-                            <div className='text-red-500 font-bold'>{row.customer}</div>
-                        </TableCell>
-                        <TableCell align="right">${row.total}</TableCell>
-                        <TableCell align="right">{row.status}</TableCell>
-                        <TableCell align="right">
-                            {/* {isServed && <button  className='  border bg-gray-500 mr-2 text-white px-2'>Next stage</button>}
-                                   {!isServed && <button  onClick={()=>{setIsServed(true)}} className=' hover:bg-green-600 border bg-green-500 mr-2 text-white px-2'>Next stage</button>}  */}
-                        </TableCell>
-                    </TableRow>
-                ))}
+                
             </TableBody>
         </Table>
     </TableContainer>)
