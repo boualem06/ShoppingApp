@@ -10,6 +10,15 @@ import Paper from '@material-ui/core/Paper';
 import pizza from '../img/pizza.png';
 import { useState } from 'react';
 import { useEffect } from 'react';
+
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+
 const useStyles = makeStyles({
     table: {
         minWidth: 100,
@@ -56,6 +65,15 @@ const OrdersTable = () => {
     const [isServed, setIsServed] = useState(false);
     const classes = useStyles();
     const [orders, setOrders] = useState([]);
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     useEffect(() => {
         const getCarts = async () => {
@@ -71,11 +89,16 @@ const OrdersTable = () => {
 
             let data = await response.json();
             setOrders(data);
-            console.log(data) ;
+            console.log(data);
         }
-
         getCarts();
     }, [])
+
+
+
+
+
+
     return (<TableContainer component={Paper}>
         <Table className={classes.table} aria-label="simple table">
             <TableHead>
@@ -91,13 +114,56 @@ const OrdersTable = () => {
                 {orders &&
 
                     orders.map((row, index) => (
-                        <TableRow key={index}>
+                        <TableRow className='hover:bg-gray-100 hover:cursor-pointer' key={index} >
                             <TableCell component="th" scope="row">
                                 <div className='text-red-500 font-bold'>{row.userName}</div>
                             </TableCell>
                             <TableCell align="right">${row.total}</TableCell>
                             <TableCell align="right">{row.status}</TableCell>
                             <TableCell align="right">
+
+                                <div>
+                                    <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                                        Show Details
+                                    </Button>
+                                    <Dialog
+                                        open={open}
+                                        onClose={handleClose}
+                                        aria-labelledby="alert-dialog-title"
+                                        aria-describedby="alert-dialog-description"
+                                    >
+                                        <DialogTitle id="alert-dialog-title">{"List of Products"}</DialogTitle>
+                                        <DialogContent>
+
+
+                                            <Table className={classes.table} aria-label="simple table">
+                                                <TableHead>
+                                                    <TableRow className=''>
+
+                                                        <TableCell><div className='font-bold text-lg'>Name</div></TableCell>
+                                                        <TableCell align="right"><div className='font-bold text-lg'>Price</div></TableCell>
+                                                        <TableCell align="right"><div className='font-bold text-lg'>Quantity</div></TableCell>
+                                                    </TableRow>
+                                                </TableHead>
+                                                <TableBody>
+                                                    {(row.userProducts).map((product, index) => (
+                                                        <TableRow className='hover:bg-gray-100 hover:cursor-pointer' key={index} >
+                                                            <TableCell align="left" >{product.name}</TableCell>
+                                                            <TableCell align="center">${product.price}</TableCell>
+                                                            <TableCell align="center">{product.quantity}</TableCell>
+                                                        </TableRow>
+                                                    ))}
+                                                </TableBody>
+                                            </Table>
+
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button onClick={handleClose} color="primary">
+                                                Close
+                                            </Button>
+                                        </DialogActions>
+                                    </Dialog>
+                                </div>
                                 {/* {isServed && <button  className='  border bg-gray-500 mr-2 text-white px-2'>Next stage</button>}
                    {!isServed && <button  onClick={()=>{setIsServed(true)}} className=' hover:bg-green-600 border bg-green-500 mr-2 text-white px-2'>Next stage</button>}  */}
                             </TableCell>
@@ -105,9 +171,11 @@ const OrdersTable = () => {
                     ))
 
                 }
-                
+
             </TableBody>
         </Table>
+
+
     </TableContainer>)
 }
 export default OrdersTable
