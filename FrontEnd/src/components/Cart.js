@@ -53,15 +53,6 @@ export default function Cart({ cart, setCart }) {
          getMe();
     }, [])
 
-
-    // const calculateTotal=()=>{
-    //     let Total=0 ;
-    //      for (let  i=0;i<cart.length;i++){
-    //         Total=Total + ((cart[i]).price)*(cart[i]).quantity
-    //      }
-    //      console.log(Total) ;
-    // }
-
     const saveProduct = async () => {
         let headersList = {
             "Accept": "*/*",
