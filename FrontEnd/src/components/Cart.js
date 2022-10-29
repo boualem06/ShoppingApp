@@ -72,6 +72,7 @@ export default function Cart({ cart, setCart }) {
           for (let  i=0;i<cart.length;i++){
             Total=Total + ((cart[i]).price)*(cart[i]).quantity
          }
+         console.log(Total) ;
 
 
         let response = await fetch("http://localhost:5000/addToCart", {
@@ -86,6 +87,12 @@ export default function Cart({ cart, setCart }) {
         });
         let data = await response.json();
         console.log("data is saved")
+        console.log({
+            name:currentUser.name,
+            total:Total,
+            id: currentUser.id,
+            userProducts: cart
+        }) ;
         console.log(data);
     }
 

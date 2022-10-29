@@ -59,6 +59,7 @@ function App() {
          });
          
          let data = await response.json();
+         console.log(data) ;
          setCart((data[0]).userProducts) ;
   }
 
@@ -83,21 +84,21 @@ function App() {
     });
     const [number,setNumber]=useState(1) ;
   return (
-    <Router>
-      <Routes>
-      <Route  path={'/'} element={<Home />}></Route>
-        <Route element={<PrivateRoutes />}>
-          <Route path={'/Home'} element={< Main cart={cart} setCart={setCart} element={element} setElement={setElement}/>} />
-          <Route path={'/Admin'} element={<Admin />}></Route>
-          <Route path={'/Cart'} element={<Cart cart={cart} setCart={setCart} />}></Route>
-          <Route path={'/Detail'} element={<Detail size={size} setSize={setSize} number={number} setNumber={setNumber} additional={additional} setAddittional={setAddittional}  element={element} cart={cart} setCart={setCart}/>}></Route>
-        </Route>
-        <Route path={'/Login'} element={<Login />}></Route>
-        <Route path={'/SignUp'} element={<SignUp />}></Route>
-      </Routes>
-    </Router>
+    // <Router>
+    //   <Routes>
+    //   <Route  path={'/'} element={<Home />}></Route>
+    //     <Route element={<PrivateRoutes />}>
+    //       <Route path={'/Home'} element={< Main cart={cart} setCart={setCart} element={element} setElement={setElement}/>} />
+    //       <Route path={'/Admin'} element={<Admin />}></Route>
+    //       <Route path={'/Cart'} element={<Cart cart={cart} setCart={setCart} />}></Route>
+    //       <Route path={'/Detail'} element={<Detail size={size} setSize={setSize} number={number} setNumber={setNumber} additional={additional} setAddittional={setAddittional}  element={element} cart={cart} setCart={setCart}/>}></Route>
+    //     </Route>
+    //     <Route path={'/Login'} element={<Login />}></Route>
+    //     <Route path={'/SignUp'} element={<SignUp />}></Route>
+    //   </Routes>
+    // </Router>
 
-    // <ResponsiveDialog/>
+    <Test2/>
   )
 }
 

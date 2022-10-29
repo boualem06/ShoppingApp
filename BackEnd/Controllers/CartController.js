@@ -19,7 +19,7 @@ const addToCart = async (req, res) => {
     
     if (data.length !== 0) {
         let cartId=((data[0])._id.toString()) ;
-        Cart.updateOne({_id:cartId}, { $set: { userProducts: req.body.userProducts } }, (err, result) => {
+        Cart.updateOne({_id:cartId}, { $set: { userProducts: req.body.userProducts,total:req.body.total } }, (err, result) => {
             if (err) return console.log(err)
             res.json(result);
             
