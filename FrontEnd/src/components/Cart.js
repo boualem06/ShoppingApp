@@ -72,7 +72,7 @@ export default function Cart({ cart, setCart }) {
                 name:currentUser.name,
                 total:Total,
                 id: currentUser.id,
-                userProducts: cart
+                userProducts: cart,
             }),
             headers: headersList
         });

@@ -95,7 +95,32 @@ const OrdersTable = () => {
         getCarts();
     }, [])
 
+    const deleteRow = async (row) => {
+        let temp = orders.filter((ele) => { return ele._id !== row._id })
+        setOrders(temp);
 
+
+
+        let headersList = {
+            "Accept": "*/*",
+            "Content-Type": "application/json"
+        }
+
+        let bodyContent = JSON.stringify({
+            id: row._id
+        });
+
+        let response = await fetch("http://localhost:5000/DeleteCart", {
+            method: "DELETE",
+            body: bodyContent,
+            headers: headersList
+        });
+
+        let data = await response.json();
+        console.log(data);
+
+
+    }
 
 
 
@@ -107,24 +132,25 @@ const OrdersTable = () => {
                     <TableCell ><div className='font-bold text-lg'>Customer</div></TableCell>
                     <TableCell><div className='font-bold text-lg'>Total</div></TableCell>
                     <TableCell align="right"><div className='font-bold text-lg'>Status</div></TableCell>
-
                     <TableCell align="right"><div className='font-bold text-lg'>Action</div></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
                 {orders &&
-
                     orders.map((row, index) => (
-                        <TableRow className='hover:bg-gray-100 hover:cursor-pointer' key={index} onClick={() => {  setElementsToShow(row.userProducts);handleClickOpen(); }} >
-                            <TableCell component="th" scope="row">
+                        <TableRow className='hover:bg-gray-100 hover:cursor-pointer' key={index}  >
+                            <TableCell component="th" scope="row" onClick={() => { setElementsToShow(row.userProducts); handleClickOpen(); }} >
                                 <div className='text-red-500 font-bold'>{row.userName}</div>
                             </TableCell>
-                            <TableCell align="right">${row.total}</TableCell>
-                            <TableCell align="right">{row.status}</TableCell>
-                            <TableCell align="right">{row.status}</TableCell>
+                            <TableCell onClick={() => { setElementsToShow(row.userProducts); handleClickOpen(); }} align="right">${row.total}</TableCell>
+                            <TableCell align="right">
+                                <button className="bg-red-500 text-white px-3 py-2 rounded-md">Not served</button>
+                            </TableCell>
+                            <TableCell align="right">
+                                <button onClick={() => { console.log("served"); deleteRow(row) }} className="bg-gray-100 px-3 py-2 rounded-md hover:bg-sky-500 hover:shadow-lg hover:text-white">Served</button>
+                            </TableCell>
                         </TableRow>
                     ))
-
                 }
 
             </TableBody>

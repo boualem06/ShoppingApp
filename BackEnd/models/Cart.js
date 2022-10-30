@@ -15,8 +15,9 @@ const CartSchema=new Schema({
         required:[true,'please add a userId'] 
     },
     userProducts:{
-        type:Array
-    }
+        type:Array,
+        required:[true,'please add the userProducts'] 
+    },
     
 },{timestamps:true})
 

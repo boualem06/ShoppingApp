@@ -30,7 +30,7 @@ const addToCart = async (req, res) => {
             total:req.body.total,
             userName:req.body.name,
             userId: req.body.id,
-            userProducts: req.body.userProducts
+            userProducts: req.body.userProducts,
         });
         cart.save().then((result) => {
             res.json(result);
@@ -45,10 +45,18 @@ const getAllCarts=(req,res)=>{
     })
 }
 
+const Delete=(req,res)=>{
+    Cart.findByIdAndDelete(req.body.id).then((result)=>{
+        console.log(result) ;
+        res.send(result) ;
+    })
+}
+
 
 
 module.exports = {
     getCart,
     addToCart,
-    getAllCarts
+    getAllCarts,
+    Delete
 }
