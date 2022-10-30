@@ -13,6 +13,11 @@ const userSchema=new Schema({
         type:String,
         required:[true,'please add a password']
     },
+    admin:
+    {
+        type:Boolean,
+        required:[true,'please specify if the user is Admin or no ']
+    }
     
 },{timestamps:true})
 

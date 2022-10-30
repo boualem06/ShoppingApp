@@ -4,6 +4,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import CallTwoTone from '@material-ui/icons/CallTwoTone'
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 const StyledBadge = withStyles((theme) => ({
     badge: {
         right: -3,
@@ -14,7 +15,26 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 const Navbar = () => {
-    
+    const [currentUser, setCurrentUser] = useState({});
+    useEffect(() => {
+        const getMe = async () => {
+            let headersList = {
+                "Accept": "*/*",
+                "accestoken": localStorage.getItem('jwt'),
+                "Content-Type": "application/json"
+            }
+
+            let response = await fetch("http://localhost:5000/me", {
+                method: "GET",
+                headers: headersList
+            });
+            let data = await response.json();
+            setCurrentUser(data)
+            console.log(data)
+        }
+        getMe();
+    }, [])
+
     return (
         <div className='bg-gradient-to-r from-orange-600  py-1  to-orange-700 px-4'>
             <div className=" flex justify-between items-center lg:px-16 ">
@@ -32,6 +52,16 @@ const Navbar = () => {
                 </div>
 
                 <div className='flex justify-center items-center'>
+                    
+
+                    {currentUser.admin && <div>
+                            <span className='text-white mr-8 text-xl  cursor-pointer  hover:font-bold'><Link to={"/Admin"}>Admin Panel</Link></span>
+                    </div>}
+
+                    {currentUser.admin && <div>
+                            <span className='text-white mr-8 text-xl  cursor-pointer  hover:font-bold'><Link to={"/CreateAdmin"}>Create Admin</Link></span>
+                    </div>}
+
                     {!localStorage.getItem('jwt') ?
                         <div className=''>
                             <span className='text-white mr-8 text-xl  cursor-pointer  hover:font-bold '><Link to={"/Login"}>Login</Link></span>
@@ -43,18 +73,17 @@ const Navbar = () => {
                         </div>
 
                     }
+
                     {localStorage.getItem('jwt') && <Link to={"/Cart"}>
                         <IconButton aria-label="cart">
                             <StyledBadge badgeContent={10} color="secondary">
-
                                 <div className='text-white '>
                                     <ShoppingCartIcon fontSize='large' />
                                 </div>
-
                             </StyledBadge>
                         </IconButton>
                     </Link>}
-                    
+
                 </div>
 
 

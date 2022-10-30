@@ -30,6 +30,7 @@ import Email from '@material-ui/icons/Email';
 import Create from '@material-ui/icons/Create';
 import PermContactCalendar from '@material-ui/icons/PermContactCalendar'
 import ExitToApp from '@material-ui/icons/ExitToApp'
+import { useEffect, useState } from "react";
 const drawerWidth = 240;
 
 const StyledBadge = withStyles((theme) => ({
@@ -102,10 +103,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
+
+
 export default function PersistentDrawerLeft() {
+
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const [currentUser, setCurrentUser] = useState({});
     // console.log(cart) ;
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -115,7 +121,25 @@ export default function PersistentDrawerLeft() {
         setOpen(false);
     };
 
-    
+    useEffect(() => {
+
+        const getMe = async () => {
+            let headersList = {
+                "Accept": "*/*",
+                "accestoken": localStorage.getItem('jwt'),
+                "Content-Type": "application/json"
+            }
+
+            let response = await fetch("http://localhost:5000/me", {
+                method: "GET",
+                headers: headersList
+            });
+            let data = await response.json();
+            setCurrentUser(data)
+            console.log(data)
+        }
+        getMe();
+    }, [])
 
     return (
         <div className={classes.root}>
@@ -177,23 +201,40 @@ export default function PersistentDrawerLeft() {
                         </ListItem>
                     </Link>
                     {!localStorage.getItem('jwt') &&
-                    <Link to={"/Login"}>
-                        <ListItem button >
-                            <ListItemIcon><Person></Person></ListItemIcon>
-                            <ListItemText primary="Login" />
+                        <Link to={"/Login"}>
+                            <ListItem button >
+                                <ListItemIcon><Person></Person></ListItemIcon>
+                                <ListItemText primary="Login" />
 
-                        </ListItem>
-                    </Link>}
+                            </ListItem>
+                        </Link>}
                     {!localStorage.getItem('jwt') &&
-                    <Link to={"/SignUp"}>
-                        <ListItem button >
-                            <ListItemIcon><Email></Email></ListItemIcon>
-                            <ListItemText primary="Sign Up" />
-                        </ListItem>
-                    </Link>
+                        <Link to={"/SignUp"}>
+                            <ListItem button >
+                                <ListItemIcon><Email></Email></ListItemIcon>
+                                <ListItemText primary="Sign Up" />
+                            </ListItem>
+                        </Link>
+                    }
+                    {currentUser.admin &&
+                        <Link to={"/CreateAdmin"}>
+                            <ListItem button >
+                                <ListItemIcon><Person></Person></ListItemIcon>
+                                <ListItemText primary="Create Admin" />
+                            </ListItem>
+                        </Link>
+                    }
+
+                    {currentUser.admin &&
+                        <Link to={"/Admin"}>
+                            <ListItem button >
+                                <ListItemIcon><Person></Person></ListItemIcon>
+                                <ListItemText primary="Admin Panel" />
+                            </ListItem>
+                        </Link>
                     }
                     {localStorage.getItem('jwt') &&
-                        <button onClick={() => { localStorage.removeItem('jwt') ;window.location.reload()}}>
+                        <button onClick={() => { localStorage.removeItem('jwt'); window.location.reload() }}>
                             <Link to={"/"}>
                                 <ListItem button >
                                     {/* <button> */}

@@ -4,7 +4,7 @@ const bcrypt=require('bcryptjs') ;
 require("dotenv").config();
 // const asyncHandler=require('express-async-handler') ;
 const registerUser=async(req,res)=>{
-    const {name,email,password}=req.body ;
+    const {name,email,password,admin}=req.body ;
     if(!name || !email || !password){
         res.status(400) ;
         res.json( {message:"please add all fields",status:400})
@@ -28,7 +28,8 @@ const registerUser=async(req,res)=>{
     const user=await User.create({
         name,
         email,
-        password:hashedPassword
+        admin,
+        password:hashedPassword,
     })
 
     if(user){
@@ -36,6 +37,7 @@ const registerUser=async(req,res)=>{
             _id:user.id,
             name:user.name,
             email:user.email,
+            admin:user.admin,
             status:201,
             token:generateToken(user.id)
         })
@@ -62,6 +64,7 @@ const loginUser=async (req,res)=>{
             _id:user.id,
             name:user.name,
             email:user.email,
+            admin:user.admin,
             status:201,
             token:generateToken(user.id)
         })
@@ -85,11 +88,12 @@ const generateToken=(id)=>{
 
 //get the actuell user
 const me=async (req,res)=>{
-    const {_id,name,email}=await User.findById(req.user.id) ;
+    const {_id,name,email,admin}=await User.findById(req.user.id) ;
     res.status(200).json({
         id:_id,
         name,
-        email
+        email,
+        admin
     })
 } 
 

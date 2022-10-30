@@ -61,7 +61,8 @@ export default function SignUp() {
          let bodyContent = JSON.stringify({
            "email": formdata.email,
            "password": formdata.password,
-           "name":formdata.name
+           "name":formdata.name,
+           admin:false
          });
 
          let response = await fetch("http://localhost:5000/register", { 
@@ -100,11 +101,11 @@ export default function SignUp() {
         {Error2 && <div className='mt-2 font-bold text-red-500'>{data.message}</div> }
         <form onSubmit={sendForm} className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} >
               <TextField
                 onChange={(e) => { setFormdata({ ...formdata, name: e.target.value }) }}
-                autoComplete="fname"
                 name="name"
+                autoComplete="name"
                 variant="outlined"
                 required
                 fullWidth

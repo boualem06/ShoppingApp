@@ -12,6 +12,7 @@ import SignUp from "./components/Sign_Up";
 import PrivateRoutes from "./components/PrivateRoutes";
 import Main from "./components/Main";
 import { useEffect, useState } from "react";
+import NewAdmin from "./components/NewAdmin";
 import Test2 from "./components/Test";
 function App() {
     let hello ;
@@ -80,6 +81,7 @@ function App() {
         <Route element={<PrivateRoutes />}>
           <Route path={'/Home'} element={< Main cart={cart} setCart={setCart} element={element} setElement={setElement}/>} />
           <Route path={'/Admin'} element={<Admin />}></Route>
+          <Route path={'/CreateAdmin'} element={<NewAdmin />}></Route>
           <Route path={'/Cart'} element={<Cart cart={cart} setCart={setCart} />}></Route>
           <Route path={'/Detail'} element={<Detail size={size} setSize={setSize} number={number} setNumber={setNumber} additional={additional} setAddittional={setAddittional}  element={element} cart={cart} setCart={setCart}/>}></Route>
         </Route>
