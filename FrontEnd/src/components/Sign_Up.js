@@ -14,6 +14,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useState } from "react";
 import { Navigate } from "react-router-dom"
+import NavbarResp from './NavbarResp';
+import Footer from './Footer';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,143 +40,146 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
   const [formdata, setFormdata] = useState({ name: "", email: "", password: "" })
-  const [Errors, setEroros] = useState({ ErrEmail: "", ErrPassword: '' ,ErrName:""});
+  const [Errors, setEroros] = useState({ ErrEmail: "", ErrPassword: '', ErrName: "" });
   const [Error, setError] = useState(false);
-  const [Error2,setError2]=useState(false) ;
-  const[data,setData]=useState({}) ;
-  const[isLogin,setIsLogin]=useState(false) ;
+  const [Error2, setError2] = useState(false);
+  const [data, setData] = useState({});
+  const [isLogin, setIsLogin] = useState(false);
   const sendForm = async (event) => {
     event.preventDefault();
-      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-      if (!regex.test(formdata.email)) {
-        setError(true);
-        setEroros({ ...Errors, ErrEmail: "email not valide" })
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!regex.test(formdata.email)) {
+      setError(true);
+      setEroros({ ...Errors, ErrEmail: "email not valide" })
+    }
+    else {
+      setError(false)
+      let headersList = {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+        "Content-Type": "application/json"
+      }
+
+      let bodyContent = JSON.stringify({
+        "email": formdata.email,
+        "password": formdata.password,
+        "name": formdata.name,
+        admin: false
+      });
+
+      let response = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        body: bodyContent,
+        headers: headersList
+      });
+
+      let data = await response.json();
+      console.log(data);
+      if (data.status == 400) {
+        setData(data)
+        setError2(true);
+        setIsLogin(false)
       }
       else {
-        setError(false)
-        let headersList = {
-          "Accept": "*/*",
-          "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-          "Content-Type": "application/json"
-         }
-
-         let bodyContent = JSON.stringify({
-           "email": formdata.email,
-           "password": formdata.password,
-           "name":formdata.name,
-           admin:false
-         });
-
-         let response = await fetch("http://localhost:5000/register", { 
-           method: "POST",
-           body: bodyContent,
-           headers: headersList
-         });
-
-         let data = await response.json();
-         console.log(data) ;
-        if(data.status==400)
-        {
-          setData(data)
-          setError2(true) ;
-          setIsLogin(false)
-        }
-        else
-        {
-          setData(data) ;
-          setError2(false) ;
-          localStorage.setItem('jwt', data.token)
-          setIsLogin(true) ;
-        }
-      }    
+        setData(data);
+        setError2(false);
+        localStorage.setItem('jwt', data.token)
+        setIsLogin(true);
+      }
+    }
   }
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        {Error2 && <div className='mt-2 font-bold text-red-500'>{data.message}</div> }
-        <form onSubmit={sendForm} className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12} >
-              <TextField
-                onChange={(e) => { setFormdata({ ...formdata, name: e.target.value }) }}
-                name="name"
-                autoComplete="name"
-                variant="outlined"
-                required
-                fullWidth
-                id="name"
-                label="Full Name"
-                autoFocus
-              />
-              {/* {Error && <div className="px-2 mb-2 font-bold text-red-500">{Errors.ErrName}</div>} */}
+    <div style={{ height: "100vh" }} className="flex flex-col h-full overflow-y-hidden   justify-between " >
 
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                onChange={(e) => { setFormdata({ ...formdata, email: e.target.value }) }}
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
-              {Error && <div className="px-2 mb-2 font-bold text-red-500">{Errors.ErrEmail}</div>}
+      <NavbarResp></NavbarResp>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          {Error2 && <div className='mt-2 font-bold text-red-500'>{data.message}</div>}
+          <form onSubmit={sendForm} className={classes.form} noValidate>
+            <Grid container spacing={2}>
+              <Grid item xs={12} >
+                <TextField
+                  onChange={(e) => { setFormdata({ ...formdata, name: e.target.value }) }}
+                  name="name"
+                  autoComplete="name"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="name"
+                  label="Full Name"
+                  autoFocus
+                />
+                {/* {Error && <div className="px-2 mb-2 font-bold text-red-500">{Errors.ErrName}</div>} */}
 
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                onChange={(e) => { setFormdata({ ...formdata, password: e.target.value }) }}
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              {/* {Error && <div className="px-2 mb-2 font-bold text-red-500">{Errors.ErrPassword}</div>} */}
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  onChange={(e) => { setFormdata({ ...formdata, email: e.target.value }) }}
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+                {Error && <div className="px-2 mb-2 font-bold text-red-500">{Errors.ErrEmail}</div>}
 
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up
-            {isLogin && <Navigate to={"/Home"}></Navigate>}
-          </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <div className='text-blue-600 '>
-                <Link to={"/Login"} >
-                  Already have an account? Sign in
-                </Link>
-              </div>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  onChange={(e) => { setFormdata({ ...formdata, password: e.target.value }) }}
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+                {/* {Error && <div className="px-2 mb-2 font-bold text-red-500">{Errors.ErrPassword}</div>} */}
 
-    </Container>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  label="I want to receive inspiration, marketing promotions and updates via email."
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign Up
+              {isLogin && <Navigate to={"/Home"}></Navigate>}
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <div className='text-blue-600 '>
+                  <Link to={"/Login"} >
+                    Already have an account? Sign in
+                  </Link>
+                </div>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+
+      </Container>
+      <Footer></Footer>
+    </div>
   );
 }
 

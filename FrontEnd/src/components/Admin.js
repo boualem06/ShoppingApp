@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import EditProduct from "./EditProduct";
-const Admin = () => {
+const Admin = ({cart}) => {
     const edit = useSelector((state) => state.EditElement.edit);
     const EditElement = useSelector((state) => state.EditElement.value);
     const [add,setAdd]=useState(false) ;
@@ -18,7 +18,7 @@ const Admin = () => {
     // const [edit,setEdit]=useState(false) ;
     return (
         <div>
-            <NavbarResp/>
+            <NavbarResp cart={cart}/>
              <div className="px-4 grid gap-4 grid-cols-1 md:grid-cols-2 mt-24 md:mt-14 ">
             <div>
                 <div className="flex mb-4 w-full justify-between ">

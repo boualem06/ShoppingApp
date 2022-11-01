@@ -14,7 +14,7 @@ const StyledBadge = withStyles((theme) => ({
     },
 }))(Badge);
 
-const Navbar = () => {
+const Navbar = ({cart}) => {
     const [currentUser, setCurrentUser] = useState({});
     useEffect(() => {
         const getMe = async () => {
@@ -76,7 +76,7 @@ const Navbar = () => {
 
                     {localStorage.getItem('jwt') && <Link to={"/Cart"}>
                         <IconButton aria-label="cart">
-                            <StyledBadge badgeContent={10} color="secondary">
+                            <StyledBadge badgeContent={cart.length } color="secondary">
                                 <div className='text-white '>
                                     <ShoppingCartIcon fontSize='large' />
                                 </div>

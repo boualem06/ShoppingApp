@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const NewAdmin = () => {
+const NewAdmin = ({cart}) => {
     const classes = useStyles();
 
     const [formdata, setFormdata] = useState({ name: "", email: "", password: "" })
@@ -89,8 +89,8 @@ const NewAdmin = () => {
 
 
     return (
-        <div>
-            <NavbarResp></NavbarResp>
+        <div style={{ height: "100vh" }} className="flex flex-col h-full   justify-between ">
+            <NavbarResp cart={cart}></NavbarResp>
 
             <Container component="main" maxWidth="xs">
                 <CssBaseline />

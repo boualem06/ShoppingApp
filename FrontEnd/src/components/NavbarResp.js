@@ -5,7 +5,7 @@ const NavbarResp=({cart})=>{
     return(
         <div>
              <div className="hidden md:block">
-                <Navbar  ></Navbar>
+                <Navbar cart={cart} ></Navbar>
             </div>
             <div className="md:hidden ">
                 <PersistentDrawerLeft  ></PersistentDrawerLeft>

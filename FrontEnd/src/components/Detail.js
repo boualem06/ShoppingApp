@@ -52,10 +52,9 @@ const Detail = ({ element, size, setSize, number, setNumber, additional, setAddi
     return (
         <div style={{ height: "100%" }} className='h-full'>
 
-            <NavbarResp></NavbarResp>
+            <NavbarResp cart={cart}></NavbarResp>
             <div className="grid gap-2 md:gap-20 grid-cols-1 md:grid-cols-2 py-2 px-4 lg:px-16 md:px-6 flex flex-col items-center justify-center">
                 <div className='   flex items-center justify-center mt-16'>
-                    {/* <img src={pizza} alt="picture"></img> */}
                     <Image
 
                         cloudName={"dc7suzbrg"}

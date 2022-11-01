@@ -12,6 +12,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useState } from "react";
 import { Navigate } from "react-router-dom"
+import NavbarResp from "./NavbarResp";
+import Footer from "./Footer";
 // import Cookies from "js-cookie";
 // import LoadingButton from '@mui/lab/LoadingButton';
 
@@ -92,7 +94,9 @@ export default function SignIn() {
 
   }
   return (
-    <Container component="main" maxWidth="xs">
+    <div style={{ height: "100vh" }} className="flex flex-col h-full overflow-y-hidden  justify-between ">
+      <NavbarResp></NavbarResp>
+      <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -158,5 +162,7 @@ export default function SignIn() {
       </div>
 
     </Container>
+    <Footer></Footer>
+    </div> 
   );
 }

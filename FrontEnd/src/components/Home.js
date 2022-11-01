@@ -3,11 +3,11 @@ import Menu from "./Menu";
 import Footer from "./Footer";
 import Body from "./Body";
 
-const Home = () => {
+const Home = ({cart}) => {
     return (
 
         <div className="">
-            <NavbarResp></NavbarResp>
+            <NavbarResp cart={cart}></NavbarResp>
             <Body></Body>
             <Menu></Menu>
             <Footer></Footer>
