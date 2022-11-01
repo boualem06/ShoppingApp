@@ -15,6 +15,7 @@ const EditProduct = ({ add, setAdd }) => {
 
     
     const submitForm=async()=>{
+        setLoading(true)
         let response = await fetch("http://localhost:5000/EditProduct", {
             method: "POST",
             body:JSON.stringify({
@@ -26,6 +27,8 @@ const EditProduct = ({ add, setAdd }) => {
             }),
             headers: { "Content-Type": "application/json" },
         });
+        setLoading(false)
+        window.location.reload() ;
     }
    
     
